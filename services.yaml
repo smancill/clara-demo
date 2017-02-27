@@ -1,0 +1,19 @@
+# vim: ft=yaml
+---
+io-services:
+  reader:
+    class: org.jlab.clara.demo.services.ImageReaderService
+    name: ImageReaderService
+  writer:
+    class: org.jlab.clara.demo.services.ImageWriterService
+    name: ImageWriterService
+
+services:
+  - class: org.jlab.clara.demo.services.FaceDetectorService
+    name: FaceDetectorService
+  # - class: pupil_detector_service
+  #   name: PupilDetectorService
+  #   lang: cpp
+
+mime-types:
+  - binary/img-file

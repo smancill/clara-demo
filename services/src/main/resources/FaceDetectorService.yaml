@@ -1,0 +1,13 @@
+---
+name: FileDetectorService
+engine: org.jlab.clara.demo.services.FileDetectorService
+type: java
+
+author: Sebastián Mancilla
+email: smancill@jlab.org
+
+version: 0.1
+description:
+  Detect faces on the received image.
+
+  Returns a new image with the detected faces surrounded by a rectangle.

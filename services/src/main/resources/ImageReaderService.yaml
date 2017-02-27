@@ -1,0 +1,13 @@
+---
+name: ImageReaderService
+engine: org.jlab.clara.demo.services.ImageReaderService
+type: java
+
+author: Sebastián Mancilla
+email: smancill@jlab.org
+
+version: 0.1
+description:
+  Reads images from a ZIP file.
+
+  Returns a new image on each request or an error if there was some problem.

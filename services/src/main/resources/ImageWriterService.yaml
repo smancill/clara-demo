@@ -1,0 +1,14 @@
+---
+name: ImageWriterService
+engine: org.jlab.clara.demo.services.ImageWriterService
+type: java
+
+author: Sebastián Mancilla
+email: smancill@jlab.org
+
+version: 0.1
+description:
+  Writes images into a ZIP file.
+
+  Saves the received image to the ZIP file or reports an error if there was
+  some problem.

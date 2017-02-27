@@ -1,0 +1,17 @@
+.externalToolBuilders/
+.idea/
+.gradle/
+.settings/
+
+.DS_Store
+.checkstyle
+.classpath
+.project
+
+*.iml
+*.ipr
+*.iws
+
+bin/
+build/
+out/
