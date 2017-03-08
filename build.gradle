@@ -222,7 +222,7 @@ subprojects {
             defaultOutputDir = file("${buildDir}/eclipse-classes")
             file {
                 whenMerged { classpath ->
-                    //remove the all native libraries as direct dependencies
+                    //remove all native libraries from direct dependencies
                     classpath.entries.removeAll { entry ->
                         entry.kind == 'lib' &&
                             (entry.path.endsWith('.dll')
