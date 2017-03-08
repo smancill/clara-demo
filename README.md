@@ -112,7 +112,7 @@ files (each containing many images):
     Put a list with the names into text file.
     There is a `files.list` file ready in the root of the repository.
 
- 4. Run the orchestrator with the application configuration file,
+ 5. Run the orchestrator with the application configuration file,
     the input and output directories, and the list of input files:
 
         $CLARA_HOME/bin/clara-orchestrator -F -i ./resources -o /tmp/out services.yaml files.list
@@ -120,7 +120,7 @@ files (each containing many images):
     To change the number of parallel threads used by the services to process
     requests, pass the `-t <NUM_THREADS>` option.
 
-  6. Inspect the output files in the output directory.
+ 6. Inspect the output files in the output directory.
 
 
 ## Example
