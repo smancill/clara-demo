@@ -3,7 +3,16 @@ ext {
     claraDependency = "org.jlab.coda:${claraVersion}"
     claraMavenRepo = 'http://clasweb.jlab.org/clas12maven/'
 
-    opencvDir = '/usr/local/opt/opencv3/share/OpenCV/java/'
+    // try to find OpenCV
+    def baseDirs = [ '/usr/local/opt/opencv3', '/opt/opencv3', '/usr/local', '/usr']
+    def javaDir = '/share/OpenCV/java/'
+    if (!project.hasProperty('opencvDir')) {
+        opencvDir = baseDirs.find { new File(it + javaDir).exists() }
+        if (opencvDir == null) {
+            throw new GradleException('Missing OpenCV install directory. Set the \'opencvDir\' property.')
+        }
+    }
+    opencvJavaDir = opencvDir + javaDir
 }
 
 allprojects {
@@ -66,7 +75,7 @@ subprojects {
         testLogging {
             exceptionFormat = 'full'
         }
-        systemProperty 'java.library.path', opencvDir
+        systemProperty 'java.library.path', opencvJavaDir
     }
 }
 
@@ -80,7 +89,7 @@ project(':legacy') {
     version = '0.1-SNAPSHOT'
 
     dependencies {
-        compile fileTree(dir: opencvDir)
+        compile fileTree(dir: opencvJavaDir)
         compile 'net.lingala.zip4j:zip4j:1.3.2'
     }
 }
@@ -223,7 +232,7 @@ subprojects {
                     //but add them as native libraries
                     classpath.entries.each { entry ->
                         if (entry.kind == 'lib' && entry.path.contains('opencv')) {
-                            entry.setNativeLibraryLocation(opencvDir)
+                            entry.setNativeLibraryLocation(opencvJavaDir)
                         }
                     }
                 }
