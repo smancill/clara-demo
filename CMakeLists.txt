@@ -43,8 +43,13 @@ if(APPLE)
 endif()
 
 
+if(NOT OPENCV_ROOT)
+  set(OPENCV_ROOT "/usr/local/opt/opencv3" "/opt/opencv3" "/usr/local" "/usr"
+      CACHE PATH "OpenCV installation prefix")
+endif()
+
 find_package(clara CONFIG REQUIRED)
-find_package(OpenCV 3 REQUIRED HINTS /usr/local/opt/opencv3)
+find_package(OpenCV 3 REQUIRED HINTS ${OPENCV_ROOT})
 
 add_subdirectory("legacy/src/main/cpp")
 add_subdirectory("data/src/main/cpp")
