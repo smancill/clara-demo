@@ -1,6 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/legacy/src/main/cpp)
-include_directories(${OpenCV_INCLUDE_DIRS})
-
 set(DEMO_DATA_SRC
   image_data_type.cpp
 )

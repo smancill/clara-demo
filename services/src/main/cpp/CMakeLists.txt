@@ -1,5 +1,3 @@
-include_directories(${OpenCV_INCLUDE_DIRS})
-
 # Create one shared library per service
 set(DEMO_SERVICES
   pupil_detector_service
