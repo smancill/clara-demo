@@ -66,9 +66,11 @@ The `services` subproject creates the `demo-services-0.1.jar` and
 
 ## Dependencies
 
-### Ubuntu
+### Linux
 
-**TODO:** add OpenCV instructions.
+Install OpenCV following [these instructions][install-opencv-java].
+
+[install-opencv-java]: http://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html#install-opencv-3-x-under-linux
 
 ### macOS
 
