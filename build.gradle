@@ -100,7 +100,6 @@ project(':data') {
     version = '0.1-SNAPSHOT'
 
     repositories {
-        mavenLocal()
         maven {
             url claraMavenRepo
         }
@@ -118,7 +117,6 @@ project(':services') {
     version = '0.1-SNAPSHOT'
 
     repositories {
-        mavenLocal()
         maven {
             url claraMavenRepo
         }
