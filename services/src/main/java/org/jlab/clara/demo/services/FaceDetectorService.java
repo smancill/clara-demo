@@ -36,7 +36,7 @@ public class FaceDetectorService extends AbstractService {
 
 
     private ThreadLocal<FaceDetector> createFaceDetector(String classifier) {
-        logger.info("using classifier: {}", Paths.get(classifier).getFileName());
+        System.out.printf("using classifier: %s%n", Paths.get(classifier).getFileName());
         return ThreadLocal.withInitial(() -> new FaceDetector(classifier));
     }
 
@@ -51,13 +51,13 @@ public class FaceDetectorService extends AbstractService {
                     String classifierResource = config.getString(CONFIG_CLASSIFIER_KEY);
                     faceDetector = createFaceDetector(classifierResource);
                 } catch (JSONException e) {
-                    logger.error("invalid configuration", e);
+                    System.err.printf("invalid configuration: %s%n", e.getMessage());
                 } catch (Exception e) {
-                    logger.error("could not load classifier", e);
+                    System.err.printf("could not load classifier: %s%n", e.getMessage());
                 }
             }
         } else {
-            logger.error("unsupported configuration mime-type: {}", input.getMimeType());
+            System.err.printf("unsupported configuration mime-type: %s%n", input.getMimeType());
         }
         return null;
     }
@@ -69,7 +69,7 @@ public class FaceDetectorService extends AbstractService {
         if (input.getMimeType().equals(ImageDataType.INSTANCE.mimeType())) {
             Image img = (Image) input.getData();
             try {
-                logger.info("Received image {}: {}", img.name(), img.mat());
+                System.out.printf("Received image %s: %s%n", img.name(), img.mat());
                 Mat result = faceDetector.get().run(img.mat());
                 output.setData(ImageDataType.INSTANCE, new Image(result, img.name()));
             } catch (Exception e) {
