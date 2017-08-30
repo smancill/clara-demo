@@ -25,15 +25,15 @@ clara::EngineData PupilDetectorService::execute(clara::EngineData& input)
 {
     auto output = clara::EngineData{};
 
-    if (input.mime_type() != IMAGE_TYPE.mime_type()) {
+    if (input.mime_type() != IMAGE_TYPE) {
         output.set_status(clara::EngineStatus::ERROR);
         output.set_description("Wrong input type");
         return output;
     }
 
-    auto& img = input.data<Image>();
+    auto& img = clara::data_cast<Image>(input);
     detector_.load()->run(img.mat);
-    output.set_data(IMAGE_TYPE.mime_type(), img);
+    output.set_data(IMAGE_TYPE, img);
 
     return output;
 }
