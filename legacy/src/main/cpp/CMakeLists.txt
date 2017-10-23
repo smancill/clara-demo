@@ -13,4 +13,4 @@ target_include_directories(demo_legacy PUBLIC
 )
 
 # Install the common library
-install(TARGETS demo_legacy DESTINATION $ENV{CLARA_HOME}/lib)
+install(TARGETS demo_legacy DESTINATION $ENV{CLARA_HOME}/plugins/demo/lib)

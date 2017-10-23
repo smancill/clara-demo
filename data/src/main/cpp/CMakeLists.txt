@@ -8,4 +8,4 @@ target_include_directories(demo_data PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-install(TARGETS demo_data DESTINATION $ENV{CLARA_HOME}/lib)
+install(TARGETS demo_data DESTINATION $ENV{CLARA_HOME}/plugins/demo/lib)

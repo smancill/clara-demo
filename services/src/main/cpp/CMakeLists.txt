@@ -9,4 +9,4 @@ foreach(service ${DEMO_SERVICES})
 endforeach()
 
 # Install the services
-install(TARGETS ${DEMO_SERVICES} DESTINATION $ENV{CLARA_HOME}/lib)
+install(TARGETS ${DEMO_SERVICES} DESTINATION $ENV{CLARA_HOME}/plugins/demo/services)
