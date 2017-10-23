@@ -107,7 +107,7 @@ files (each containing many images):
 
         $CLARA_HOME/bin/c_dpe --fe-host localhost
 
- 3. Define the application with a `services.yaml` file.
+ 3. Define the application with a `services.yml` file.
     There is one file ready in the root of the repository.
 
  4. Define the data set with the input files to be processed.
@@ -117,7 +117,7 @@ files (each containing many images):
  5. Run the orchestrator with the application configuration file,
     the input and output directories, and the list of input files:
 
-        $CLARA_HOME/bin/clara-orchestrator -F -i ./resources -o /tmp/out services.yaml files.list
+        $CLARA_HOME/bin/clara-orchestrator -F -i ./resources -o /tmp/out services.yml files.list
 
     To change the number of parallel threads used by the services to process
     requests, pass the `-t <NUM_THREADS>` option.
