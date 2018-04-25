@@ -11,9 +11,9 @@ io-services:
 services:
   - class: org.jlab.clara.demo.services.FaceDetectorService
     name: FaceDetectorService
-  # - class: pupil_detector_service
-  #   name: PupilDetectorService
-  #   lang: cpp
+  - class: pupil_detector_service
+    name: PupilDetectorService
+    lang: cpp
 
 mime-types:
   - binary/img-file
