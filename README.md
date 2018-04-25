@@ -66,17 +66,9 @@ The `services` subproject creates the `demo-services-0.1.jar` and
 
 ## Dependencies
 
-### Linux
-
 Install OpenCV following [these instructions][install-opencv-java].
 
-[install-opencv-java]: http://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html#install-opencv-3-x-under-linux
-
-### macOS
-
-Install OpenCV with Homebrew:
-
-    brew install opencv3 --c++11 --with-java
+[install-opencv-java]: http://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html
 
 
 ## Build and deploy
