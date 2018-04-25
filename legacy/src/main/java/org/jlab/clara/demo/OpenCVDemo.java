@@ -26,7 +26,7 @@ public final class OpenCVDemo {
         Path outputDataSet = Paths.get(args[1]);
 
         try (ImageReader reader = new ImageReader(inputDataSet);
-             ImageWriter writer = new ImageWriter(outputDataSet)) {
+             ImageWriter writer = new ImageWriter(outputDataSet)) { // nocheck: Indentation
 
             FaceDetector df = new FaceDetector(classifier.getPath());
 
