@@ -3,11 +3,14 @@ package org.jlab.clara.demo.core;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import java.io.IOException;
+import java.nio.file.DirectoryIteratorException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 /**
  * Read images from a ZIP file.
@@ -25,9 +28,27 @@ public class ImageReader implements AutoCloseable {
      */
     public ImageReader(Path dataSet) throws IOException {
         unzipDir = ZipUtils.extract(dataSet);
-        Path baseDir = Files.newDirectoryStream(unzipDir).iterator().next();
-        DirectoryStream<Path> stream = Files.newDirectoryStream(baseDir, "*");
-        stream.forEach(path -> allImages.add(path));
+        try (DirectoryStream<Path> baseStream = Files.newDirectoryStream(unzipDir)) {
+            Iterator<Path> iter = baseStream.iterator();
+            if (iter.hasNext()) {
+                Path entry = iter.next();
+                if (Files.isDirectory(entry)) {
+                    loadAllImages(entry);
+                } else {
+                    loadAllImages(unzipDir);
+                }
+            }
+        } catch (DirectoryIteratorException e) {
+            throw e.getCause();
+        }
+    }
+
+    private void loadAllImages(Path dir) throws IOException {
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            StreamSupport.stream(stream.spliterator(), false)
+                         .filter(Files::isRegularFile)
+                         .forEach(path -> allImages.add(path));
+        }
     }
 
     /**

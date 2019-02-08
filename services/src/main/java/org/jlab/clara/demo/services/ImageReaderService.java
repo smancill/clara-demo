@@ -1,5 +1,6 @@
 package org.jlab.clara.demo.services;
 
+import org.jlab.clara.demo.core.Image;
 import org.jlab.clara.demo.core.ImageReader;
 import org.jlab.clara.demo.data.ImageDataType;
 import org.jlab.clara.engine.EngineData;
@@ -64,7 +65,7 @@ public class ImageReaderService extends AbstractEventReaderService<ImageReader> 
         return ImageDataType.INSTANCE;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Path inputDataSet = Paths.get(ImageReader.class.getResource("/dataset.zip").getPath());
 
         ImageReaderService reader = new ImageReaderService();
@@ -77,6 +78,11 @@ public class ImageReaderService extends AbstractEventReaderService<ImageReader> 
         configData.setData(EngineDataType.JSON, config.toString());
 
         reader.configure(configData);
+
+        for (int i = 0; i < reader.readEventCount(); i++) {
+            Image img = (Image) reader.readEvent(i);
+            System.out.println(img.name());
+        }
 
         reader.destroy();
     }
