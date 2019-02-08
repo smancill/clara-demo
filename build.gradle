@@ -209,7 +209,6 @@ subprojects {
 subprojects {
     eclipse {
         classpath {
-            defaultOutputDir = file("${buildDir}/eclipse-classes")
             file {
                 whenMerged { classpath ->
                     //remove all native libraries from direct dependencies
