@@ -23,11 +23,15 @@ public class ImageWriter implements AutoCloseable {
      */
     public ImageWriter(Path dataSet) throws IOException {
         this.dataSet = dataSet;
-        this.outputDir = getOutputDir(dataSet.getFileName().toString());
+        this.outputDir = getOutputDir(dataSet);
     }
 
-    private Path getOutputDir(String zipFileName) throws IOException {
-        String baseName = zipFileName.replaceFirst("[.][^.]+$", "");
+    private Path getOutputDir(Path zipPath) throws IOException {
+        Path zipName = zipPath.getFileName();
+        if (zipName == null) {
+            throw new IllegalArgumentException("Empty path to ZIP dataset");
+        }
+        String baseName = zipName.toString().replaceFirst("[.][^.]+$", "");
         Path outputDir = Files.createTempDirectory("demo").resolve(baseName);
         Files.createDirectory(outputDir);
         return outputDir;

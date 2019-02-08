@@ -78,7 +78,11 @@ public class ImageReader implements AutoCloseable {
      * @return the image
      */
     public static Image readImage(Path img) {
-        return new Image(Imgcodecs.imread(img.toString()), img.getFileName().toString());
+        Path imgName = img.getFileName();
+        if (imgName == null) {
+            throw new IllegalArgumentException("Empty path to image");
+        }
+        return new Image(Imgcodecs.imread(img.toString()), imgName.toString());
     }
 
     @Override
