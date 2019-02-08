@@ -1,3 +1,7 @@
+plugins {
+    id 'com.github.spotbugs' version '2.0.1' apply false
+}
+
 ext {
     claraVersion = 'jclara:4.3-SNAPSHOT'
     claraDependency = "org.jlab.coda:${claraVersion}"
@@ -31,7 +35,7 @@ subprojects {
     apply plugin: 'maven'
 
     apply plugin: 'checkstyle'
-    apply plugin: 'findbugs'
+    apply plugin: 'com.github.spotbugs'
 
     apply plugin: 'eclipse'
     apply plugin: 'idea'
@@ -181,34 +185,34 @@ subprojects {
         configProperties['samedir'] = rootProject.file('config/quality')
     }
 
-    findbugs {
-        toolVersion = '3.0.1'
+    spotbugs {
+        toolVersion = '3.1.12'
         ignoreFailures = true
         effort = 'default'
         reportLevel = 'medium'
         excludeFilter = rootProject.file('config/quality/findbugs-exclude.xml')
     }
 
-    tasks.withType(FindBugs) {
+    tasks.withType(com.github.spotbugs.SpotBugsTask) {
         reports {
             xml.enabled = false
             html.enabled = true
         }
+        // needed because Clara is compileOnly dependency
+        // for this witchery see spotbugs-gradle-plugin#115
+        classpath += sourceSets."${(it.name - ~/^spotbugs/).uncapitalize()}".with {
+            it.compileClasspath + configurations."${it.compileOnlyConfigurationName}"
+        }
     }
 
-    // Marker task to enable findbugs.
-    task findbugs(
-        group: 'Verification',
-        description: 'Marker task to enabled findbugs.'
-    )
+    task spotbugs {
+        group = 'Verification'
+        description = 'Marker task to enable SpotBugs.'
+    }
 
     gradle.taskGraph.whenReady { taskGraph ->
-        tasks.findbugsMain.onlyIf {
-            taskGraph.hasTask((tasks.findbugs))
-        }
-        tasks.findbugsTest.onlyIf {
-            taskGraph.hasTask((tasks.findbugs))
-        }
+        tasks.spotbugsMain.onlyIf { taskGraph.hasTask(tasks.spotbugs) }
+        tasks.spotbugsTest.onlyIf { taskGraph.hasTask(tasks.spotbugs) }
     }
 }
 
