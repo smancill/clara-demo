@@ -15,13 +15,6 @@ endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
-set(GCC_MIN_VERSION 4.9.2)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS GCC_MIN_VERSION)
-    message(FATAL_ERROR "Expected GCC >= ${GCC_MIN_VERSION} but found ${CMAKE_CXX_COMPILER_VERSION}")
-  endif()
-endif()
-
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -54,13 +47,3 @@ find_package(OpenCV 3 REQUIRED HINTS ${OPENCV_ROOT})
 add_subdirectory("legacy/src/main/cpp")
 add_subdirectory("data/src/main/cpp")
 add_subdirectory("services/src/main/cpp")
-
-
-# uninstall target
-configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-  IMMEDIATE @ONLY)
-
-add_custom_target(uninstall
-  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
