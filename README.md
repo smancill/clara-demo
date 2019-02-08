@@ -4,7 +4,7 @@ Example of a CLARA application wrapping a multi-language legacy library into ser
 
 OpenCV is used to simulate a legacy application that detects faces and pupils
 on a given set of images. For simplicity the images are stored in a ZIP file.
-In a real-world scenario the dataset of images would be saved into a more
+In a real-world scenario the dataset would be saved into a more
 complex file format, like HDF5.
 
 
@@ -30,7 +30,7 @@ The C++ implementation adds a new detection algorithm:
   * The `PupilDetector` class finds pupils in a image.
 
 The `legacy` subproject creates the `demo-legacy-0.1.jar` and
-`libdemo_legacy.dylib` artifacts.
+`libdemo_legacy.so` artifacts.
 
 ### `data` subproject
 
@@ -42,7 +42,7 @@ Orchestrators can then add a dependency on the data type package to send
 requests to the services, without downloading all the services implementation
 dependencies.
 
-The `data` subproject creates the `demo-data-0.1.jar` and `libdemo_data.dylib`
+The `data` subproject creates the `demo-data-0.1.jar` and `libdemo_data.so`
 artifacts.
 
 ### `services` subproject
@@ -61,7 +61,7 @@ The Java `FaceDetectorService` and the C++ `PupilDetectorService` pass any
 received image to its wrapped detection class.
 
 The `services` subproject creates the `demo-services-0.1.jar` and
-`libpupils_detector.dylib` artifacts.
+`libpupils_detector.so,` artifacts.
 
 
 ## Dependencies
@@ -75,15 +75,15 @@ Install OpenCV following [these instructions][install-opencv-java].
 
 Build and deploy the Java services:
 
-    ./gradlew
-    ./gradlew deploy
+    $ ./gradlew
+    $ ./gradlew deploy
 
 Build and deploy the C++ services:
 
-    mkdir build
-    cd build
-    cmake -DCMAKE_INSTALL_PREFIX=$CLARA_HOME ..
-    make install
+    $ mkdir build
+    $ cd build
+    $ cmake -DCMAKE_INSTALL_PREFIX=$CLARA_HOME ..
+    $ make install
 
 
 ## Running the application
@@ -93,11 +93,11 @@ files (each containing many images):
 
  1. Start the Java DPE:
 
-        $CLARA_HOME/bin/j_dpe
+        $ $CLARA_HOME/bin/j_dpe
 
  2. Start the C++ DPE:
 
-        $CLARA_HOME/bin/c_dpe --fe-host localhost
+        $ $CLARA_HOME/bin/c_dpe --fe-host localhost
 
  3. Define the application with a `services.yml` file.
     There is one file ready in the root of the repository.
@@ -109,7 +109,7 @@ files (each containing many images):
  5. Run the orchestrator with the application configuration file,
     the input and output directories, and the list of input files:
 
-        $CLARA_HOME/bin/clara-orchestrator -F -i ./resources -o /tmp/out services.yml files.list
+        $ $CLARA_HOME/bin/clara-orchestrator -F -i ./resources -o /tmp/out services.yml files.list
 
     To change the number of parallel threads used by the services to process
     requests, pass the `-t <NUM_THREADS>` option.
