@@ -21,6 +21,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
 
+/**
+ * A Service that detects faces on the received images.
+ */
 public class FaceDetectorService extends AbstractService {
 
     private static final String DEFAULT_CLASSIFIER = "lbpcascade_frontalface.xml";
@@ -29,6 +32,9 @@ public class FaceDetectorService extends AbstractService {
     private volatile ThreadLocal<FaceDetector> faceDetector;
 
 
+    /**
+     * Creates a new face detector service.
+     */
     public FaceDetectorService() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         reset();

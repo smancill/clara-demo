@@ -17,6 +17,9 @@ import java.nio.file.Path;
  */
 public class ImageWriterService extends AbstractEventWriterService<ImageWriter> {
 
+    /**
+     * Creates a new image writer service.
+     */
     public ImageWriterService() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }

@@ -166,7 +166,7 @@ project(':services') {
 
 subprojects {
     checkstyle {
-        toolVersion = '8.8'
+        toolVersion = '8.16'
         configFile = rootProject.file('config/quality/checkstyle.xml')
         configProperties['samedir'] = rootProject.file('config/quality')
     }

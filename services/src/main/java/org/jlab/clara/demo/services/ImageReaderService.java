@@ -19,6 +19,9 @@ import java.nio.file.Paths;
  */
 public class ImageReaderService extends AbstractEventReaderService<ImageReader> {
 
+    /**
+     * Creates a new image reader service.
+     */
     public ImageReaderService() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
