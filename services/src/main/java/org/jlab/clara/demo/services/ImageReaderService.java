@@ -65,7 +65,7 @@ public class ImageReaderService extends AbstractEventReaderService<ImageReader> 
     }
 
     public static void main(String[] args) {
-        Path inputDataSet = Paths.get(System.getProperty("user.home"), "opencv/dataset.zip");
+        Path inputDataSet = Paths.get(ImageReader.class.getResource("/dataset.zip").getPath());
 
         ImageReaderService reader = new ImageReaderService();
 
@@ -77,5 +77,7 @@ public class ImageReaderService extends AbstractEventReaderService<ImageReader> 
         configData.setData(EngineDataType.JSON, config.toString());
 
         reader.configure(configData);
+
+        reader.destroy();
     }
 }
