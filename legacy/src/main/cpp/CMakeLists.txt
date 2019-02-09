@@ -12,5 +12,4 @@ target_include_directories(demo_legacy PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-# Install the common library
-install(TARGETS demo_legacy DESTINATION $ENV{CLARA_HOME}/plugins/demo/lib)
+install(TARGETS demo_legacy DESTINATION ${CMAKE_INSTALL_PLUGINDIR}/demo/lib)

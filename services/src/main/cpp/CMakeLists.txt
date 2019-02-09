@@ -11,5 +11,4 @@ foreach(service ${DEMO_SERVICES})
   endif()
 endforeach()
 
-# Install the services
-install(TARGETS ${DEMO_SERVICES} DESTINATION $ENV{CLARA_HOME}/plugins/demo/services)
+install(TARGETS ${DEMO_SERVICES} DESTINATION ${CMAKE_INSTALL_PLUGINDIR}/demo/services)

@@ -8,15 +8,16 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     Debug Release MinSizeRel RelWithDebInfo)
 endif()
 
-if(NOT DEFINED ENV{CLARA_HOME})
-  message(FATAL_ERROR "$CLARA_HOME is not defined.")
+if(DEFINED ENV{CLARA_HOME} AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  # Provide useful default paths when $CLARA_HOME is defined
+  set(CMAKE_INSTALL_PREFIX "$ENV{CLARA_HOME}" CACHE PATH "" FORCE)
+  list(APPEND CMAKE_PREFIX_PATH "$ENV{CLARA_HOME}")
 endif()
 
-message(STATUS "CLARA_HOME = $ENV{CLARA_HOME}")
-
-if(NOT EXISTS "$ENV{CLARA_HOME}")
-  message(FATAL_ERROR "$CLARA_HOME directory does not exist.")
+if(NOT DEFINED CMAKE_INSTALL_PLUGINDIR)
+  set(CMAKE_INSTALL_PLUGINDIR plugins CACHE PATH "Clara plugins directory (plugins)")
 endif()
+mark_as_advanced(CMAKE_INSTALL_PLUGINDIR)
 
 if(NOT OpenCV_ROOT)
   set(OpenCV_ROOT /usr/local/opt/opencv3 /opt/opencv3 /usr/local /usr/
