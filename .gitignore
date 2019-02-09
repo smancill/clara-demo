@@ -15,3 +15,5 @@
 bin/
 build/
 out/
+
+out_*.zip

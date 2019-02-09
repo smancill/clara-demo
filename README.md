@@ -88,14 +88,65 @@ Build and deploy the C++ services:
 
 ## Running the application
 
+### Using the CLARA Shell
+
+Use the `clara-shell` to run the services locally with a set of ZIP files
+(each containing many images).
+The shell provides a high-level interface to configure and start
+the different CLARA components required to run an application.
+
+ 1. Start the CLARA shell:
+
+        $ $CLARA_HOME/bin/clara-shell
+
+ 2. Define the application within a `services.yaml` file.
+    There is one file ready in the root of the repository.
+
+        clara> set servicesFile services.yaml
+
+ 3. Define the data set with the input files to be processed.
+    Put a list with their names into a text file.
+    There is a `files.list` file ready in the root of the repository.
+
+        clara> set fileList files.list
+
+ 4. Define the locations for the input data set and the output result
+    (relative to where the shell was started):
+
+        clara> set inputDir resources
+        clara> set outputDir /tmp/out
+
+    Optionally you can change the number of parallel threads
+    used by the services to process requests
+
+        clara> set threads <NUM_THREADS>
+
+ 5. Start the data processing.
+    This will start the main Java DPE,
+    a C++ DPE if the C++ service is listed in `services.yaml`,
+    and it will run the standard orchestrator to process the dataset.
+
+        clara> run local
+
+ 6. Inspect the output files in the output directory.
+
+You can put the above shell commands into a script and run the script instead.
+There is a `demo.clara` script ready in the root of the repository:
+
+    $ $CLARA_HOME/bin/clara-shell demo.clara
+
+### Starting the CLARA DPEs and orchestrator manually
+
+All CLARA components started by the CLARA shell can be run manually.
+
 Use the standard `clara-orchestrator` to run the services with a set of ZIP
 files (each containing many images):
 
- 1. Start the Java DPE:
+ 1. Start the main Java DPE:
 
         $ $CLARA_HOME/bin/j_dpe
 
- 2. Start the C++ DPE:
+ 2. Start the C++ DPE (if the application uses C++ services):
 
         $ $CLARA_HOME/bin/c_dpe --fe-host localhost
 
