@@ -1,6 +1,7 @@
 #include "pupil_detector_service.hpp"
 
-#include "image_data_type.hpp"
+#include <image_data_type.hpp>
+#include <pupil_detector.hpp>
 
 #include <cmath>
 #include <iostream>
@@ -60,6 +61,30 @@ std::vector<clara::EngineDataType> PupilDetectorService::output_data_types() con
 std::set<std::string> PupilDetectorService::states() const
 {
     return std::set<std::string>{};
+}
+
+
+std::string PupilDetectorService::name() const
+{
+    return "PupilDetectorService";
+}
+
+
+std::string PupilDetectorService::author() const
+{
+    return "Sebastián Mancilla";
+}
+
+
+std::string PupilDetectorService::description() const
+{
+    return "Writes a circle around detected pupils in a given image";
+}
+
+
+std::string PupilDetectorService::version() const
+{
+    return "0.1";
 }
 
 }

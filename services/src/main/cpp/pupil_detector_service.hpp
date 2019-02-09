@@ -3,13 +3,13 @@
 
 #include <clara/engine.hpp>
 
-#include <pupil_detector.hpp>
-
 #include <atomic>
 #include <memory>
 
 namespace clara {
 namespace demo {
+
+class PupilDetector;
 
 class PupilDetectorService : public clara::Engine
 {
@@ -27,7 +27,7 @@ public:
 public:
     clara::EngineData configure(clara::EngineData&) override;
 
-    clara::EngineData execute(clara::EngineData& input) override;
+    clara::EngineData execute(clara::EngineData&) override;
 
     clara::EngineData execute_group(const std::vector<clara::EngineData>&) override;
 
@@ -39,25 +39,13 @@ public:
     std::set<std::string> states() const override;
 
 public:
-    std::string name() const override
-    {
-        return "PupilDetectorService";
-    }
+    std::string name() const override;
 
-    std::string author() const override
-    {
-        return "Sebastián Mancilla";
-    }
+    std::string author() const override;
 
-    std::string description() const override
-    {
-        return "Writes a circle around detected pupils in a given image";
-    }
+    std::string description() const override;
 
-    std::string version() const override
-    {
-        return "0.1";
-    }
+    std::string version() const override;
 
 private:
     std::atomic<PupilDetector*> detector_{};
