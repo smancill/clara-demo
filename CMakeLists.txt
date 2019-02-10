@@ -25,6 +25,8 @@ if(NOT OpenCV_ROOT)
 endif()
 mark_as_advanced(OpenCV_ROOT)
 
+option(DEMO_BUILD_TESTS "Build tests" ON)
+
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -48,3 +50,9 @@ find_package(OpenCV 3 REQUIRED HINTS ${OpenCV_ROOT})
 add_subdirectory(legacy/src/main/cpp)
 add_subdirectory(data/src/main/cpp)
 add_subdirectory(services/src/main/cpp)
+
+if(DEMO_BUILD_TESTS)
+  enable_testing()
+  include(cmake/External/GTest.cmake)
+  add_subdirectory(data/src/test/cpp)
+endif(DEMO_BUILD_TESTS)
