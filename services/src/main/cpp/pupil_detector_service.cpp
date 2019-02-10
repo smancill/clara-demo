@@ -3,6 +3,8 @@
 #include <image_data_type.hpp>
 #include <pupil_detector.hpp>
 
+#include <clara/stdlib/json_utils.hpp>
+
 #include <cmath>
 #include <iostream>
 
@@ -16,8 +18,19 @@ std::unique_ptr<clara::Engine> create_engine()
 namespace clara {
 namespace demo {
 
-clara::EngineData PupilDetectorService::configure(clara::EngineData&)
+clara::EngineData PupilDetectorService::configure(clara::EngineData& input)
 {
+    // Clara provides a simple JSON parser to read configuration data
+    // and configure the service.
+    auto config = clara::stdlib::parse_json(input);
+
+    // Example for when the service has state that is configured by
+    // the orchestrator. The "state" object should be a std::shared_ptr
+    // accessed atomically.
+    //
+    // (This service is actually stateless, so detector_ could just simply be
+    // initialized in the service constructor).
+    std::atomic_store(&detector_, std::make_shared<PupilDetector>());
     return {};
 }
 
@@ -26,6 +39,7 @@ clara::EngineData PupilDetectorService::execute(clara::EngineData& input)
 {
     auto output = clara::EngineData{};
 
+    // If the mime-type is not supported, return an error.
     if (input.mime_type() != IMAGE_TYPE) {
         output.set_status(clara::EngineStatus::ERROR);
         output.set_description("Wrong input type");
@@ -33,9 +47,12 @@ clara::EngineData PupilDetectorService::execute(clara::EngineData& input)
     }
 
     auto& img = clara::data_cast<Image>(input);
-    detector_.load()->run(img.mat);
-    output.set_data(IMAGE_TYPE, img);
 
+    // This always loads the shared_pointer into a new shared_ptr
+    std::atomic_load(&detector_)->run(img.mat);
+
+    // Set and return output data
+    output.set_data(IMAGE_TYPE, img);
     return output;
 }
 

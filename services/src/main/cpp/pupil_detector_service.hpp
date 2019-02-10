@@ -48,7 +48,7 @@ public:
     std::string version() const override;
 
 private:
-    std::atomic<PupilDetector*> detector_{};
+    std::shared_ptr<PupilDetector> detector_{};
 };
 
 } // end namespace demo
