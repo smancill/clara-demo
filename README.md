@@ -170,4 +170,4 @@ files (each containing many images):
 
 ## Example
 
-<a href="https://asciinema.org/a/e4k49sl0l92357oinl294xu3a" target="_blank"><img src="https://asciinema.org/a/e4k49sl0l92357oinl294xu3a.png" width="600"/></a>
+<a href="https://asciinema.org/a/VkSg1qWC7nAFpa8Wii3LeJ21r" target="_blank"><img src="https://asciinema.org/a/VkSg1qWC7nAFpa8Wii3LeJ21r.svg" width="600"/></a>
