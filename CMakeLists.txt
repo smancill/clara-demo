@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.2...3.12)
+cmake_minimum_required(VERSION 3.5.1...3.12)
 project(CLARA_DEMO C CXX)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
