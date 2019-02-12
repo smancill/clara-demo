@@ -66,6 +66,10 @@ The `services` subproject creates the `demo-services-0.1.jar` and
 
 ## Dependencies
 
+Install [CLARA Java](https://github.com/JeffersonLab/clara-java#build-notes)
+and [CLARA C++](https://github.com/JeffersonLab/clara-cpp#build-notes)
+into `$CLARA_HOME`.
+
 Install OpenCV following [these instructions][install-opencv-java].
 
 [install-opencv-java]: http://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html
@@ -83,6 +87,7 @@ Build and deploy the C++ services:
     $ mkdir build
     $ cd build
     $ cmake -DCMAKE_INSTALL_PREFIX=$CLARA_HOME ..
+    $ make
     $ make install
 
 
