@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.1...3.12)
+cmake_minimum_required(VERSION 3.5.1)
 project(CLARA_DEMO C CXX)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -19,6 +19,9 @@ if(NOT DEFINED CMAKE_INSTALL_PLUGINDIR)
 endif()
 mark_as_advanced(CMAKE_INSTALL_PLUGINDIR)
 
+if(POLICY CMP0074)
+  cmake_policy(SET CMP0074 NEW)
+endif()
 if(NOT OpenCV_ROOT)
   set(OpenCV_ROOT /usr/local/opt/opencv3 /opt/opencv3 /usr/local /usr/
       CACHE PATH "OpenCV installation prefix")
