@@ -1,18 +1,48 @@
-language: java
-
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+  - ccache -s
 
 cache:
+  ccache: true
   directories:
+    - $HOME/.ccache/
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
+env:
+  global:
+    - CLARA_HOME=~/clara-home
+    - DEPS_DIR=~/deps
+    - BUILD_TYPE=RelWithDebInfo
+    - CCACHE_COMPRESS=1
 
 matrix:
   include:
     - os: linux
-      jdk: oraclejdk8
+      dist: xenial
+      jdk: openjdk8
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - ant
+            - libzmq5-dev
+            - libprotobuf-dev
+            - protobuf-compiler
 
-notifications:
-  email: false
+before_install:
+  - ccache -z
+
+install:
+  - ( mkdir -p $DEPS_DIR && cd $DEPS_DIR &&
+      cmake $TRAVIS_BUILD_DIR/.ci &&
+      make )
+
+script:
+  - echo "opencvDir=$CLARA_HOME" > gradle.properties
+  - ( ./gradlew && ./gradlew deploy ) &&
+    ( mkdir -p build && cd build &&
+      cmake -DCMAKE_INSTALL_PREFIX=$CLARA_HOME .. &&
+      make && make test && make install ) &&
+    $CLARA_HOME/bin/clara-shell demo.clara
