@@ -10,7 +10,7 @@ ExternalProject_Add(
   URL_HASH          SHA256=0cc341e3b77cf96ae431ee55b7ba53d41d184cc11506d100711022abfcfe6bb3
   DOWNLOAD_NAME     opencv-3.4.5.zip
   CMAKE_ARGS        -DCMAKE_INSTALL_PREFIX:PATH=$ENV{CLARA_HOME}
-                    -DCMAKE_BUILD_TYPE=RELEASE
+                    -DCMAKE_BUILD_TYPE=Release
                     -DBUILD_DOCS=OFF
                     -DBUILD_EXAMPLES=OFF
                     -DBUILD_PERF_TESTS=OFF
@@ -67,7 +67,7 @@ ExternalProject_Add(
   GIT_REPOSITORY https://github.com/JeffersonLab/xmsg-cpp
   GIT_TAG master
   CMAKE_ARGS  -DCMAKE_INSTALL_PREFIX:PATH=$ENV{CLARA_HOME}
-              -DCMAKE_BUILD_TYPE=RELEASE
+              -DCMAKE_BUILD_TYPE=Release
               -DXMSG_BUILD_TESTS:BOOL=OFF
   DEPENDS clara-java
 )
@@ -77,7 +77,7 @@ ExternalProject_Add(
   GIT_REPOSITORY https://github.com/JeffersonLab/clara-cpp
   GIT_TAG master
   CMAKE_ARGS  -DCMAKE_INSTALL_PREFIX:PATH=$ENV{CLARA_HOME}
-              -DCMAKE_BUILD_TYPE=RELEASE
+              -DCMAKE_BUILD_TYPE=Release
               -DCLARA_BUILD_TESTS:BOOL=OFF
   DEPENDS xmsg-cpp clara-java
 )

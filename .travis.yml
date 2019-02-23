@@ -43,6 +43,8 @@ script:
   - echo "opencvDir=$CLARA_HOME" > gradle.properties
   - ( ./gradlew && ./gradlew deploy ) &&
     ( mkdir -p build && cd build &&
-      cmake -DCMAKE_INSTALL_PREFIX=$CLARA_HOME .. &&
+      cmake -DCMAKE_INSTALL_PREFIX=$CLARA_HOME
+            -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+            .. &&
       make && make test && make install ) &&
     $CLARA_HOME/bin/clara-shell demo.clara
