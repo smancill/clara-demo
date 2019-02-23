@@ -63,21 +63,11 @@ Externalproject_Add(
 )
 
 ExternalProject_Add(
-  xmsg-cpp
-  GIT_REPOSITORY https://github.com/JeffersonLab/xmsg-cpp
-  GIT_TAG master
-  CMAKE_ARGS  -DCMAKE_INSTALL_PREFIX:PATH=$ENV{CLARA_HOME}
-              -DCMAKE_BUILD_TYPE=Release
-              -DXMSG_BUILD_TESTS:BOOL=OFF
-  DEPENDS clara-java
-)
-
-ExternalProject_Add(
   clara-cpp
   GIT_REPOSITORY https://github.com/JeffersonLab/clara-cpp
   GIT_TAG master
   CMAKE_ARGS  -DCMAKE_INSTALL_PREFIX:PATH=$ENV{CLARA_HOME}
               -DCMAKE_BUILD_TYPE=Release
               -DCLARA_BUILD_TESTS:BOOL=OFF
-  DEPENDS xmsg-cpp clara-java
+  DEPENDS clara-java
 )
