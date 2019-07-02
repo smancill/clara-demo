@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Run the demo services processing the example dataset.
+#
+# If "$CLARA_HOME" is not defined, then "<demo_root>/clara" will be used.
+#
+# Usage:
+#
+#   $ export OpenCV_ROOT=/opt/opencv3       # optional (see "install-opencv" script)
+#   $ export CLARA_HOME=~/dev/clara-home    # optional
+#   $ ./scripts/run-demo
+
+demo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+
+if [ -z "$CLARA_HOME" ]; then
+    echo "CLARA_HOME is not set."
+    export CLARA_HOME="$demo_dir/clara"
+    echo "Using CLARA_HOME=\"$CLARA_HOME\""
+fi
+
+# shellcheck disable=2154
+if [ -n "$OpenCV_ROOT" ]; then
+    case "$(uname)" in
+        "Linux")
+            export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$OpenCV_ROOT
+            ;;
+        "Darwin")
+            export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH:+$DYLD_LIBRARY_PATH:}$OpenCV_ROOT
+            ;;
+        *)
+            ;;
+    esac
+fi
+
+cd "$demo_dir" || exit 1
+
+"$CLARA_HOME/bin/clara-shell" demo.clara

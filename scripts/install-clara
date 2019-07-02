@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Download, build and install Clara Java and C++ into "$CLARA_HOME".
+# If "$CLARA_HOME" is not defined, then "<demo_root>/clara" will be used.
+#
+# Clara dependencies need to be installed in the system.
+#
+# Requirements:
+#
+#   CMake
+#   Protocol Buffers
+#   ZeroMQ
+#
+# Usage:
+#
+#   $ export CLARA_HOME=~/dev/clara-home  # optional
+#   $ ./scripts/install-clara
+
+demo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+deps_dir=${DEPS_DIR:-$demo_dir/deps}
+build_dir=$deps_dir/clara
+
+# check CLARA_HOME
+if [ -z "$CLARA_HOME" ]; then
+    echo "CLARA_HOME is not set."
+    export CLARA_HOME="$demo_dir/clara"
+    echo "Using CLARA_HOME=\"$CLARA_HOME\""
+fi
+
+# check CMake
+if ! command -v cmake > /dev/null 2>&1; then
+    cat << EOF >&2
+Please install the CMake build tool.
+EOF
+    exit 1;
+fi
+
+{ mkdir -p "$build_dir" && cd "$build_dir"; } ||
+    { echo "Could not create \"$build_dir\""; exit 1; }
+
+echo "Installing Clara..."
+cmake_cmd=(cmake)
+cmake_cmd+=("-DINSTALL_CLARA=ON")
+cmake_cmd+=("$demo_dir/.ci")
+
+rm -f CMakeCache.txt
+rm -f src/*-stamp/*-configure
+
+"${cmake_cmd[@]}" && make

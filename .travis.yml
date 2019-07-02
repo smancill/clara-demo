@@ -35,16 +35,8 @@ before_install:
   - ccache -z
 
 install:
-  - ( mkdir -p $DEPS_DIR && cd $DEPS_DIR &&
-      cmake $TRAVIS_BUILD_DIR/.ci &&
-      make )
+  - ./scripts/install-opencv
+  - ./scripts/install-clara
 
 script:
-  - echo "opencvDir=$CLARA_HOME" > gradle.properties
-  - ( ./gradlew && ./gradlew deploy ) &&
-    ( mkdir -p build && cd build &&
-      cmake -DCMAKE_INSTALL_PREFIX=$CLARA_HOME
-            -DCMAKE_BUILD_TYPE=$BUILD_TYPE
-            .. &&
-      make && make test && make install ) &&
-    $CLARA_HOME/bin/clara-shell demo.clara
+  - ./scripts/install-demo && ./scripts/run-demo

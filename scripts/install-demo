@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Build and install demo services into "$CLARA_HOME".
+# If "$CLARA_HOME" is not defined, then "<demo_root>/clara" will be used.
+#
+# Usage:
+#
+#   $ export OpenCV_ROOT=/opt/opencv3       # optional (see "install-opencv" script)
+#   $ export CLARA_HOME=~/dev/clara-home    # optional
+#   $ ./scripts/install-demo
+
+demo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+build_dir=$demo_dir/build
+
+# check CLARA_HOME
+if [ -z "$CLARA_HOME" ]; then
+    echo "CLARA_HOME is not set."
+    export CLARA_HOME="$demo_dir/clara"
+    echo "Using CLARA_HOME=\"$CLARA_HOME\""
+fi
+
+# check CMake
+if ! command -v cmake > /dev/null 2>&1; then
+    cat << EOF >&2
+Please install the CMake build tool.
+EOF
+    exit 1;
+fi
+
+mkdir -p "$build_dir" ||
+    { echo "Could not create \"$build_dir\""; exit 1; }
+
+cd "$demo_dir" || exit 1
+echo "Building demo..."
+
+gradle_cmd=(./gradlew)
+# shellcheck disable=2154
+if [ -n "$OpenCV_ROOT" ]; then
+    gradle_cmd+=("-PopencvDir=$OpenCV_ROOT")
+fi
+
+cmake_cmd=(cmake)
+if [ -n "$OpenCV_ROOT" ]; then
+    cmake_cmd+=("-DOpenCV_ROOT=$OpenCV_ROOT")
+fi
+cmake_cmd+=("$demo_dir")
+
+( "${gradle_cmd[@]}" && "${gradle_cmd[@]}" deploy ) &&
+( cd "$build_dir" && rm -f CMakeCache.txt && "${cmake_cmd[@]}" && make && make install )

@@ -1,15 +1,27 @@
 cmake_minimum_required(VERSION 3.5.1)
 
+if(NOT DEFINED ENV{CLARA_HOME})
+  message(FATAL_ERROR "CLARA_HOME is not defined")
+endif()
+
+option(INSTALL_OPENCV "Build and install OpenCV" OFF)
+option(INSTALL_CLARA "Build and install Clara" OFF)
+
+set(OPENCV_INSTALL_DIR $ENV{CLARA_HOME} CACHE STRING "OpenCV install directory")
+
+
 include(ExternalProject)
 set_directory_properties(PROPERTIES EP_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
 
+if(INSTALL_OPENCV)
 # Build the minimum set of features that make the services work.
 ExternalProject_Add(
   opencv
   URL               https://github.com/opencv/opencv/archive/3.4.5.zip
   URL_HASH          SHA256=0cc341e3b77cf96ae431ee55b7ba53d41d184cc11506d100711022abfcfe6bb3
   DOWNLOAD_NAME     opencv-3.4.5.zip
-  CMAKE_ARGS        -DCMAKE_INSTALL_PREFIX:PATH=$ENV{CLARA_HOME}
+  CMAKE_ARGS        -DCMAKE_INSTALL_PREFIX:PATH=${OPENCV_INSTALL_DIR}
+                    -DCMAKE_INSTALL_LIBDIR=lib
                     -DCMAKE_BUILD_TYPE=Release
                     -DBUILD_DOCS=OFF
                     -DBUILD_EXAMPLES=OFF
@@ -49,17 +61,18 @@ ExternalProject_Add(
                     -DWITH_V4L=OFF
                     -DWITH_VTK=OFF
 )
+endif()
 
+if(INSTALL_CLARA)
 # This could get a binary distribution, but compiling is not so bad.
 Externalproject_Add(
   clara-java
   GIT_REPOSITORY https://github.com/JeffersonLab/clara-java
   GIT_TAG master
-  CONFIGURE_COMMAND ""
+  CONFIGURE_COMMAND touch <SOURCE_DIR>/settings.gradle
   BUILD_COMMAND <SOURCE_DIR>/gradlew build -x javadoc -x check
   INSTALL_COMMAND <SOURCE_DIR>/gradlew deploy
   BUILD_IN_SOURCE ON
-  DEPENDS opencv
 )
 
 ExternalProject_Add(
@@ -67,7 +80,9 @@ ExternalProject_Add(
   GIT_REPOSITORY https://github.com/JeffersonLab/clara-cpp
   GIT_TAG master
   CMAKE_ARGS  -DCMAKE_INSTALL_PREFIX:PATH=$ENV{CLARA_HOME}
+              -DCMAKE_INSTALL_LIBDIR=lib
               -DCMAKE_BUILD_TYPE=Release
               -DCLARA_BUILD_TESTS:BOOL=OFF
   DEPENDS clara-java
 )
+endif()

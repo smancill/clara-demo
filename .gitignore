@@ -17,3 +17,6 @@ build/
 out/
 
 out_*.zip
+
+/deps/
+/clara/
