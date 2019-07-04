@@ -92,6 +92,16 @@ Build and deploy the C++ services into `$CLARA_HOME`:
     $ make
     $ make install
 
+> **Note:**
+> The build may fail if OpenCV cannot be found in a standard location.
+>
+> - For Gradle, set the custom OpenCV install prefix in the `opencvDir` property:
+>
+>       $ ./gradlew -PopencvDir=/app/opencv3/ [ deploy ]
+>
+> - For CMake, set the custom OpenCV install prefix in the `OpenCV_ROOT` variable:
+>
+>       $ cmake -DOpenCV_ROOT=/app/opencv3 ..
 
 ## Running the application
 
