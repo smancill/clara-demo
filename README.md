@@ -79,16 +79,16 @@ Install OpenCV following [these instructions][install-opencv-java].
 
 ## Build and deploy
 
-Build and deploy the Java services:
+Build and deploy the Java services into `$CLARA_HOME`:
 
     $ ./gradlew
     $ ./gradlew deploy
 
-Build and deploy the C++ services:
+Build and deploy the C++ services into `$CLARA_HOME`:
 
     $ mkdir build
     $ cd build
-    $ cmake -DCMAKE_INSTALL_PREFIX=$CLARA_HOME ..
+    $ cmake ..
     $ make
     $ make install
 
