@@ -5,6 +5,9 @@ ext {
 
     // try to find OpenCV
     def baseDirs = [ '/usr/local/opt/opencv3', '/opt/opencv3', '/usr/local', '/usr']
+    if (System.getenv('CLARA_HOME') != null) {
+        baseDirs.push "$System.env.CLARA_HOME"
+    }
     def javaDir = '/share/OpenCV/java/'
     if (!project.hasProperty('opencvDir')) {
         opencvDir = baseDirs.find { new File(it + javaDir).exists() }
