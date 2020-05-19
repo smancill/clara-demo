@@ -57,6 +57,12 @@ subprojects {
         testCompile 'org.hamcrest:hamcrest:2.2'
     }
 
+    tasks.withType(JavaCompile) {
+        if (JavaVersion.current() > JavaVersion.VERSION_1_8) {
+            options.compilerArgs += ['--release', '8']
+        }
+    }
+
     javadoc {
         options.addStringOption('Xdoclint:none', '-quiet')
     }
