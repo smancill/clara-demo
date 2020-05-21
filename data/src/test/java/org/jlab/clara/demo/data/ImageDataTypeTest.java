@@ -1,14 +1,14 @@
 package org.jlab.clara.demo.data;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.jlab.clara.demo.core.Image;
 import org.jlab.clara.demo.core.ImageReader;
 import org.jlab.clara.engine.ClaraSerializer;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 public class ImageDataTypeTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() throws Exception {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
