@@ -3,9 +3,16 @@ plugins {
 }
 
 ext {
-    claraVersion = 'jclara:4.3-SNAPSHOT'
-    claraDependency = "org.jlab.coda:${claraVersion}"
-    claraMavenRepo = 'http://clasweb.jlab.org/clas12maven/'
+    // dependencies
+    claraMavenRepo = 'https://clasweb.jlab.org/clas12maven/'
+
+    libs = [
+        clara: 'org.jlab.coda:jclara:4.3-SNAPSHOT',
+        zip4j: 'net.lingala.zip4j:zip4j:1.3.3',
+        jupiter_api: 'org.junit.jupiter:junit-jupiter-api:5.6.2',
+        jupiter_engine: 'org.junit.jupiter:junit-jupiter-engine:5.6.2',
+        hamcrest: 'org.hamcrest:hamcrest:2.2',
+    ]
 
     // try to find OpenCV
     def baseDirs = [ '/usr/local/opt/opencv3', '/opt/opencv3', '/usr/local', '/usr']
@@ -23,6 +30,8 @@ ext {
 }
 
 allprojects {
+    group = 'org.jlab.clara.demo'
+
     defaultTasks 'build'
 }
 
@@ -40,12 +49,8 @@ subprojects {
     apply plugin: 'eclipse'
     apply plugin: 'idea'
 
-    group = 'org.jlab.clara'
-
-    compileJava {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-    }
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
     configurations {
         testImplementation.extendsFrom compileOnly
@@ -56,9 +61,9 @@ subprojects {
     }
 
     dependencies {
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
-        testImplementation 'org.hamcrest:hamcrest:2.2'
+        testImplementation libs.jupiter_api
+        testRuntimeOnly libs.jupiter_engine
+        testImplementation libs.hamcrest
     }
 
     tasks.withType(JavaCompile) {
@@ -68,6 +73,9 @@ subprojects {
     }
 
     javadoc {
+        options.charSet = 'utf8'
+        options.encoding = 'utf8'
+        options.docEncoding = 'utf8'
         options.addStringOption('Xdoclint:none', '-quiet')
     }
 
@@ -92,12 +100,15 @@ subprojects {
         }
         systemProperty 'java.library.path', opencvJavaDir
     }
+
+    task allDeps(type: DependencyReportTask) {}
+
+    task allDepInsight(type: DependencyInsightReportTask) doLast {}
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // specific subprojects
 //////////////////////////////////////////////////////////////////////////////
-
 
 project(':legacy') {
     archivesBaseName = 'demo-legacy'
@@ -105,10 +116,9 @@ project(':legacy') {
 
     dependencies {
         api fileTree(dir: opencvJavaDir)
-        implementation 'net.lingala.zip4j:zip4j:1.3.3'
+        implementation libs.zip4j
     }
 }
-
 
 project(':data') {
     archivesBaseName = 'demo-data'
@@ -121,11 +131,10 @@ project(':data') {
     }
 
     dependencies {
-        compileOnly claraDependency
+        compileOnly libs.clara
         implementation project(':legacy')
     }
 }
-
 
 project(':services') {
     archivesBaseName = 'demo-services'
@@ -138,7 +147,7 @@ project(':services') {
     }
 
     dependencies {
-        compileOnly claraDependency
+        compileOnly libs.clara
         implementation project(':legacy')
         implementation project(':data')
     }
@@ -149,13 +158,12 @@ project(':services') {
 //////////////////////////////////////////////////////////////////////////////
 
 project(':services') {
-
     def deploySpec = copySpec {
         into ('plugins/demo/lib') {
-            from configurations.runtime
+            from configurations.runtimeClasspath
         }
         into ('plugins/demo/services') {
-            from jar.archivePath
+            from jar
         }
     }
 
@@ -172,7 +180,6 @@ project(':services') {
         }
     }
 }
-
 
 //////////////////////////////////////////////////////////////////////////////
 // quality check
