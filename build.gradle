@@ -131,7 +131,6 @@ project(':services') {
         compileOnly claraDependency
         compile project(':legacy')
         compile project(':data')
-        compile 'org.json:json:20160810'
     }
 }
 
