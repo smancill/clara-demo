@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.5.1)
+project(CLARA_DEMO_DEPS NONE)
 
 if(NOT DEFINED ENV{CLARA_HOME})
   message(FATAL_ERROR "CLARA_HOME is not defined")
