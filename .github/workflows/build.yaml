@@ -1,0 +1,44 @@
+name: build
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: temurin
+        java-version: 17
+        cache: gradle
+
+    - name: Install dependencies
+      run: |
+        sudo apt install libzmq5-dev libprotobuf-dev protobuf-compiler
+        sudo apt install libopencv-dev
+
+    - name: Prepare environment
+      run: |
+        echo "CLARA_HOME=$HOME/clara-home" >> $GITHUB_ENV
+        echo "CLARA_USER_DATA=$HOME/clara-home" >> $GITHUB_ENV
+        echo "DEPS_DIR=$HOME/deps" >> $GITHUB_ENV
+        echo "LD_LIBRARY_PATH=/usr/lib/jni" >> $GITHUB_ENV
+
+    - name: Install Clara
+      run: |
+        ./scripts/install-clara
+
+    - name: Build and run demo
+      run: |
+        ./scripts/install-demo
+        ./scripts/run-demo

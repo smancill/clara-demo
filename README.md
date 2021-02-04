@@ -1,5 +1,8 @@
 # Clara Framework multi-language application demo
 
+[![Build status](https://github.com/smancill/clara-demo/actions/workflows/build.yaml/badge.svg)](https://github.com/smancill/clara-demo/actions/workflows/build.yaml)
+
+
 Example of a Clara application wrapping a multi-language legacy library into services.
 
 OpenCV is used to simulate a legacy application that detects faces and pupils

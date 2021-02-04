@@ -83,7 +83,7 @@ subprojects {
         testLogging {
             exceptionFormat = 'full'
         }
-        systemProperty 'java.library.path', opencvJavaDir
+        systemProperty 'java.library.path', opencvJavaDir + ':' + System.getProperty('java.library.path')
     }
 
     task allDeps(type: DependencyReportTask) {}
