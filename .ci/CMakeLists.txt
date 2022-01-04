@@ -72,7 +72,7 @@ if(INSTALL_CLARA)
 # This could get a binary distribution, but compiling is not so bad.
 Externalproject_Add(
   clara-java
-  GIT_REPOSITORY https://github.com/JeffersonLab/clara-java
+  GIT_REPOSITORY https://github.com/smancill/clara-java
   GIT_TAG master
   CONFIGURE_COMMAND touch <SOURCE_DIR>/settings.gradle
   BUILD_COMMAND <SOURCE_DIR>/gradlew build -x javadoc -x check
@@ -82,7 +82,7 @@ Externalproject_Add(
 
 ExternalProject_Add(
   clara-cpp
-  GIT_REPOSITORY https://github.com/JeffersonLab/clara-cpp
+  GIT_REPOSITORY https://github.com/smancill/clara-cpp
   GIT_TAG master
   CMAKE_ARGS  -DCMAKE_INSTALL_PREFIX:PATH=$ENV{CLARA_HOME}
               -DCMAKE_INSTALL_LIBDIR=lib

@@ -1,6 +1,6 @@
-# CLARA multi-language application demo
+# Clara Framework multi-language application demo
 
-Example of a CLARA application wrapping a multi-language legacy library into services.
+Example of a Clara application wrapping a multi-language legacy library into services.
 
 OpenCV is used to simulate a legacy application that detects faces and pupils
 on a given set of images. For simplicity the images are stored in a ZIP file.
@@ -47,14 +47,14 @@ artifacts.
 
 ### `services` subproject
 
-The final CLARA services are just a tiny layer over the `legacy` code.
+The final Clara services are just a tiny layer over the `legacy` code.
 The most important thing to consider is thread-safety of the legacy classes.
-CLARA services will run in a multi-thread environment and developers must
+Clara services will run in a multi-thread environment and developers must
 ensure thread-safety.
 
 The Java implementation provides the `ImageReaderService` and the
 `ImageWriterService` to open the ZIP dataset files and read or save the
-images. The services extend the standard CLARA I/O services
+images. The services extend the standard Clara I/O services
 `AbstractEventReaderService` and `AbstractEventWriterService`.
 
 The Java `FaceDetectorService` and the C++ `PupilDetectorService` pass any
@@ -66,8 +66,8 @@ The `services` subproject creates the `demo-services-0.1.jar` and
 
 ## Dependencies
 
-Install [CLARA Java](https://github.com/JeffersonLab/clara-java#build-notes)
-and [CLARA C++](https://github.com/JeffersonLab/clara-cpp#build-notes)
+Install [Clara Java](https://github.com/smancill/clara-java#build-notes)
+and [Clara C++](https://github.com/smancill/clara-cpp#build-notes)
 into `$CLARA_HOME`.
 
 Install OpenCV 4 following [these instructions][install-opencv-java].
@@ -103,14 +103,14 @@ Build and deploy the C++ services into `$CLARA_HOME`:
 
 ## Running the application
 
-### Using the CLARA Shell
+### Using the Clara Shell
 
 Use the `clara-shell` to run the services locally with a set of ZIP files
 (each containing many images).
 The shell provides a high-level interface to configure and start
-the different CLARA components required to run an application.
+the different Clara components required to run an application.
 
- 1. Start the CLARA shell:
+ 1. Start the Clara shell:
 
         $ $CLARA_HOME/bin/clara-shell
 
@@ -150,9 +150,9 @@ There is a `demo.clara` script ready in the root of the repository:
 
     $ $CLARA_HOME/bin/clara-shell demo.clara
 
-### Starting the CLARA DPEs and orchestrator manually
+### Starting the Clara DPEs and orchestrator manually
 
-All CLARA components started by the CLARA shell can be run manually.
+All Clara components started by the Clara shell can be run manually.
 
 Use the standard `clara-orchestrator` to run the services with a set of ZIP
 files (each containing many images):

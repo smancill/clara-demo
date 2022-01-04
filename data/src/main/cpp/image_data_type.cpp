@@ -11,9 +11,9 @@ const int IMG_META_SIZE = 5 * sizeof(std::int32_t);
 class ImageSerializer : public clara::Serializer
 {
 public:
-    std::vector<std::uint8_t> write(const clara::any& data) const override
+    std::vector<std::uint8_t> write(const std::any& data) const override
     {
-        const auto& img = clara::any_cast<const Image&>(data);
+        const auto& img = std::any_cast<const Image&>(data);
 
         auto name_size = img.name.size();
         auto img_size = img.mat.total() * img.mat.channels();
@@ -39,7 +39,7 @@ public:
         return buffer.data_;
     }
 
-    clara::any read(const std::vector<std::uint8_t>& buffer) const override
+    std::any read(const std::vector<std::uint8_t>& buffer) const override
     {
         auto name_size= to_int(buffer, 0);
         auto img_rows = to_int(buffer, 4);
@@ -50,9 +50,9 @@ public:
         auto name = to_container<std::string>(buffer, 20, name_size);
         auto data = to_container<bytes_t>(buffer, 20 + name_size, img_size);
 
-        auto img = clara::any{Image{cv::Mat{}, std::move(name)}};
+        auto img = std::any{Image{cv::Mat{}, std::move(name)}};
 
-        auto& mat = clara::any_cast<Image&>(img).mat;
+        auto& mat = std::any_cast<Image&>(img).mat;
         mat.create(img_rows, img_cols, img_type);
         std::copy(data.begin(), data.end(), mat.data);
 

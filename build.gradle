@@ -4,10 +4,10 @@ plugins {
 
 ext {
     // dependencies
-    claraMavenRepo = 'https://clasweb.jlab.org/clas12maven/'
+    claraMavenRepo = 'https://maven.smancill.dev/m2'
 
     libs = [
-        clara: 'org.jlab.coda:jclara:4.3-SNAPSHOT',
+        clara: 'dev.smancill.clara:clara-std:5.0-SNAPSHOT',
         zip4j: 'net.lingala.zip4j:zip4j:2.9.1',
         jupiter_api: 'org.junit.jupiter:junit-jupiter-api:5.8.2',
         jupiter_engine: 'org.junit.jupiter:junit-jupiter-engine:5.8.2',
@@ -30,7 +30,7 @@ ext {
 }
 
 allprojects {
-    group = 'org.jlab.clara.demo'
+    group = 'dev.smancill.clara.demo'
 
     defaultTasks 'build'
 }
@@ -49,8 +49,8 @@ subprojects {
     apply plugin: 'eclipse'
     apply plugin: 'idea'
 
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 
     configurations {
         testImplementation.extendsFrom compileOnly
@@ -69,12 +69,6 @@ subprojects {
     java {
         withSourcesJar()
         withJavadocJar()
-    }
-
-    tasks.withType(JavaCompile) {
-        if (JavaVersion.current() > JavaVersion.VERSION_1_8) {
-            options.compilerArgs += ['--release', '8']
-        }
     }
 
     javadoc {
@@ -103,7 +97,7 @@ subprojects {
 
 project(':legacy') {
     archivesBaseName = 'demo-legacy'
-    version = '0.1-SNAPSHOT'
+    version = '0.5-SNAPSHOT'
 
     dependencies {
         api fileTree(dir: opencvJavaDir)
@@ -113,7 +107,7 @@ project(':legacy') {
 
 project(':data') {
     archivesBaseName = 'demo-data'
-    version = '0.1-SNAPSHOT'
+    version = '0.5-SNAPSHOT'
 
     repositories {
         maven {
@@ -129,7 +123,7 @@ project(':data') {
 
 project(':services') {
     archivesBaseName = 'demo-services'
-    version = '0.1-SNAPSHOT'
+    version = '0.5-SNAPSHOT'
 
     repositories {
         maven {

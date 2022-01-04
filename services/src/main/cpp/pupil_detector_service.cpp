@@ -101,7 +101,7 @@ std::string PupilDetectorService::description() const
 
 std::string PupilDetectorService::version() const
 {
-    return "0.1";
+    return "0.5";
 }
 
 }

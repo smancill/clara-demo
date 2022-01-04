@@ -4,9 +4,9 @@ engine: org.jlab.clara.demo.services.ImageReaderService
 type: java
 
 author: Sebastián Mancilla
-email: smancill@jlab.org
+email: smancill@smancill.dev
 
-version: 0.1
+version: 0.5
 description:
   Reads images from a ZIP file.
 

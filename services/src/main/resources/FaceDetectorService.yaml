@@ -4,9 +4,9 @@ engine: org.jlab.clara.demo.services.FileDetectorService
 type: java
 
 author: Sebastián Mancilla
-email: smancill@jlab.org
+email: smancill@smancill.dev
 
-version: 0.1
+version: 0.5
 description:
   Detect faces on the received image.
 

@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
- * A CLARA engine data-type for an image.
+ * A Clara engine data-type for an image.
  */
 public final class ImageDataType extends EngineDataType {
 

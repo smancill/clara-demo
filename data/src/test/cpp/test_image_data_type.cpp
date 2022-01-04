@@ -24,13 +24,13 @@ TEST(SerializeImageType, Data)
     auto name = "lena.png";
     auto image = cv::imread(name, cv::IMREAD_COLOR);
 
-    auto orig = any{Image{image, name}};
+    auto orig = std::any{Image{image, name}};
 
     auto* serializer = IMAGE_TYPE.serializer();
     auto copy = serializer->read(serializer->write(orig));
 
-    auto& orig_img = any_cast<Image&>(orig);
-    auto& copy_img = any_cast<Image&>(copy);
+    auto& orig_img = std::any_cast<Image&>(orig);
+    auto& copy_img = std::any_cast<Image&>(copy);
 
     ASSERT_THAT(copy_img.name, Eq(orig_img.name));
     ASSERT_THAT(copy_img.mat.size(), Eq(orig_img.mat.size()));
