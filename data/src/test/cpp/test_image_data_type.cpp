@@ -22,7 +22,7 @@ auto data(const cv::Mat& img)
 TEST(SerializeImageType, Data)
 {
     auto name = "lena.png";
-    auto image = cv::imread(name, CV_LOAD_IMAGE_COLOR);
+    auto image = cv::imread(name, cv::IMREAD_COLOR);
 
     auto orig = any{Image{image, name}};
 

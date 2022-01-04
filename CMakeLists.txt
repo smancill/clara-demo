@@ -23,7 +23,7 @@ if(POLICY CMP0074)
   cmake_policy(SET CMP0074 NEW)
 endif()
 if(NOT OpenCV_ROOT)
-  set(OpenCV_ROOT $ENV{CLARA_HOME} /usr/local/opt/opencv3 /opt/opencv3 /usr/local /usr/
+  set(OpenCV_ROOT $ENV{CLARA_HOME} /usr/local/opt/opencv4 /opt/opencv4 /usr/local /usr/
       CACHE PATH "OpenCV installation prefix")
 endif()
 mark_as_advanced(OpenCV_ROOT)
@@ -50,7 +50,7 @@ include(FetchContent)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 
 find_package(Clara REQUIRED)
-find_package(OpenCV 3 REQUIRED HINTS ${OpenCV_ROOT})
+find_package(OpenCV 4 REQUIRED HINTS ${OpenCV_ROOT})
 
 
 add_subdirectory(legacy/src/main/cpp)

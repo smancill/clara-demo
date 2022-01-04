@@ -6,7 +6,7 @@
 #
 # Usage:
 #
-#   $ export OpenCV_ROOT=/opt/opencv3       # optional (see "install-opencv" script)
+#   $ export OpenCV_ROOT=/opt/opencv4       # optional (see "install-opencv" script)
 #   $ export CLARA_HOME=~/dev/clara-home    # optional
 #   $ ./scripts/run-demo
 

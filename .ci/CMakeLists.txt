@@ -18,9 +18,9 @@ if(INSTALL_OPENCV)
 # Build the minimum set of features that make the services work.
 ExternalProject_Add(
   opencv
-  URL               https://github.com/opencv/opencv/archive/3.4.5.zip
-  URL_HASH          SHA256=0cc341e3b77cf96ae431ee55b7ba53d41d184cc11506d100711022abfcfe6bb3
-  DOWNLOAD_NAME     opencv-3.4.5.zip
+  URL               https://github.com/opencv/opencv/archive/4.5.1.zip
+  URL_HASH          SHA256=5fbc26ee09e148a4d494b225d04217f7c913ca1a4d46115b70cca3565d7bbe05
+  DOWNLOAD_NAME     opencv-4.5.1.zip
   CMAKE_ARGS        -DCMAKE_INSTALL_PREFIX:PATH=${OPENCV_INSTALL_DIR}
                     -DCMAKE_INSTALL_LIBDIR=lib
                     -DCMAKE_BUILD_TYPE=Release
@@ -31,7 +31,9 @@ ExternalProject_Add(
                     -DBUILD_TESTS=OFF
                     -DBUILD_opencv_apps=OFF
                     -DBUILD_opencv_dnn=OFF
+                    -DBUILD_opencv_js_bindings_generator=OFF
                     -DBUILD_opencv_ml=OFF
+                    -DBUILD_opencv_objc_bindings_generator=OFF
                     -DBUILD_opencv_photo=OFF
                     -DBUILD_opencv_python_bindings_generator=OFF
                     -DBUILD_opencv_stitching=OFF
@@ -39,6 +41,7 @@ ExternalProject_Add(
                     -DBUILD_opencv_videoio=OFF
                     -DENABLE_CXX11=ON
                     -DWITH_1394=OFF
+                    -DWITH_ADE=OFF
                     -DWITH_EIGEN=OFF
                     -DWITH_FFMPEG=OFF
                     -DWITH_GSTREAMER=OFF
@@ -46,6 +49,7 @@ ExternalProject_Add(
                     -DWITH_IPP=OFF
                     -DWITH_ITT=OFF
                     -DWITH_IMGCODEC_HDR=OFF
+                    -DWITH_IMGCODEC_PFM=OFF
                     -DWITH_IMGCODEC_PXM=OFF
                     -DWITH_IMGCODEC_SUNRASTER=OFF
                     -DWITH_JASPER=OFF

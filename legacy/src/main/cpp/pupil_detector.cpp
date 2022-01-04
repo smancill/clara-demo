@@ -22,14 +22,14 @@ void PupilDetector::run(cv::Mat& img)
 
     // Invert the source image and convert to grayscale
     cv::Mat gray;
-    cv::cvtColor(~img, gray, CV_BGR2GRAY);
+    cv::cvtColor(~img, gray, cv::COLOR_BGR2GRAY);
 
     // Convert to binary image by thresholding it
     cv::threshold(gray, gray, 220, 255, cv::THRESH_BINARY);
 
     // Find all contours
     std::vector<std::vector<cv::Point>> contours;
-    cv::findContours(gray.clone(), contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
+    cv::findContours(gray.clone(), contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
 
     // Fill holes in each contour
     cv::drawContours(gray, contours, -1, CV_RGB(255,255,255), -1);

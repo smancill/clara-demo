@@ -70,7 +70,7 @@ Install [CLARA Java](https://github.com/JeffersonLab/clara-java#build-notes)
 and [CLARA C++](https://github.com/JeffersonLab/clara-cpp#build-notes)
 into `$CLARA_HOME`.
 
-Install OpenCV following [these instructions][install-opencv-java].
+Install OpenCV 4 following [these instructions][install-opencv-java].
 
 [install-opencv-java]: http://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html
 
@@ -95,11 +95,11 @@ Build and deploy the C++ services into `$CLARA_HOME`:
 >
 > - For Gradle, set the custom OpenCV install prefix in the `opencvDir` property:
 >
->       $ ./gradlew -PopencvDir=/app/opencv3/ [ deploy ]
+>       $ ./gradlew -PopencvDir=/app/opencv4/ [ deploy ]
 >
 > - For CMake, set the custom OpenCV install prefix in the `OpenCV_ROOT` variable:
 >
->       $ cmake -DOpenCV_ROOT=/app/opencv3 ..
+>       $ cmake -DOpenCV_ROOT=/app/opencv4 ..
 
 ## Running the application
 

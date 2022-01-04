@@ -11,7 +11,7 @@
 #
 # Usage:
 #
-#   $ export OpenCV_ROOT=/opt/opencv3  # optional
+#   $ export OpenCV_ROOT=/opt/opencv4  # optional
 #   $ ./scripts/install-opencv
 
 demo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
