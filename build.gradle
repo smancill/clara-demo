@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.spotbugs' version '4.2.2' apply false
+    id 'com.github.spotbugs' version '4.7.9' apply false
 }
 
 ext {
@@ -183,7 +183,7 @@ subprojects {
     }
 
     spotbugs {
-        toolVersion = '4.0.3'
+        toolVersion = '4.4.2'
         ignoreFailures = true
         effort = 'default'
         reportLevel = 'medium'
