@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: © Sebastián Mancilla
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #ifndef CLARA_DEMO_DATA_IMAGE_HPP_
 #define CLARA_DEMO_DATA_IMAGE_HPP_
 

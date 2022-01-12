@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: © Sebastián Mancilla
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #include "pupil_detector_service.hpp"
 
 #include <image_data_type.hpp>

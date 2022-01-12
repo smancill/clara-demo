@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: © Sebastián Mancilla
+#
+# SPDX-License-Identifier: Apache-2.0
+
 # Create one shared library per service
 set(DEMO_SERVICES
   pupil_detector_service

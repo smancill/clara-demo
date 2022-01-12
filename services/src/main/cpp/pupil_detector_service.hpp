@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: © Sebastián Mancilla
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #ifndef SCIA_RESAMPLING_SERVICE_HPP
 #define SCIA_RESAMPLING_SERVICE_HPP
 

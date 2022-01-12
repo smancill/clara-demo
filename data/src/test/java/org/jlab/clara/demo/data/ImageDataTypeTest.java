@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: © Sebastián Mancilla
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package org.jlab.clara.demo.data;
 
 import static org.hamcrest.CoreMatchers.is;

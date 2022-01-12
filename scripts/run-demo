@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-
+#
+# SPDX-FileCopyrightText: © Sebastián Mancilla
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 # Run the demo services processing the example dataset.
 #
 # If "$CLARA_HOME" is not defined, then "<demo_root>/clara" will be used.

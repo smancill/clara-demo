@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © Sebastián Mancilla
+//
+// SPDX-License-Identifier: Apache-2.0
+
 plugins {
     id 'com.github.spotbugs' version '4.7.9' apply false
 }

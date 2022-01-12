@@ -1,0 +1,30 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Clara Framework
+Upstream-Contact: Sebastián Mancilla <smancill@smancill.dev>
+Source: https://github.com/smancill/clara-java
+
+# Clara shell files
+Files: services.yaml files.list demo.clara
+Copyright: © Sebastián Mancilla
+License: MIT-0
+
+# Clara services spec files
+Files: services/*/resources/*Service.yaml
+Copyright: © Sebastián Mancilla
+License: MIT-0
+
+# misc
+Files: .gitignore */.gitignore .mailmap README.md
+Copyright: © Sebastián Mancilla
+License: MIT-0
+
+
+# Gradle wrapper
+Files: gradlew gradlew.bat gradle/wrapper/gradle-wrapper.jar
+Copyright:
+License: Apache-2.0
+
+Files: gradle/wrapper/gradle-wrapper.jar
+       gradle/wrapper/gradle-wrapper.properties
+Copyright: Copyright (2015) the original author or authors.
+License: Apache-2.0

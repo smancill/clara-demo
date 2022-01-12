@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: © Sebastián Mancilla
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #include "image_data_type.hpp"
 
 #include <cstdint>

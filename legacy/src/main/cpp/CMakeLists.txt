@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: © Sebastián Mancilla
+#
+# SPDX-License-Identifier: Apache-2.0
+
 set(LEGACY_SRC
   pupil_detector.cpp
 )

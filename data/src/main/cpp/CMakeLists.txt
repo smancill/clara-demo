@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: © Sebastián Mancilla
+#
+# SPDX-License-Identifier: Apache-2.0
+
 set(DEMO_DATA_SRC
   image_data_type.cpp
 )

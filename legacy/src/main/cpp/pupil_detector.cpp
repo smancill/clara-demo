@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: © Sebastián Mancilla
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 // Program to detect pupil, based on
 // https://github.com/bsdnoobz/opencv-code/blob/master/pupil-detect.cpp
 

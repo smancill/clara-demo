@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: © Sebastián Mancilla
+#
+# SPDX-License-Identifier: Apache-2.0
+
 name: build
 
 on:
