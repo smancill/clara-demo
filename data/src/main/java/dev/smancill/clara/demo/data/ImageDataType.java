@@ -38,7 +38,7 @@ public final class ImageDataType extends EngineDataType {
 
             @Override
             public ByteBuffer write(Object data) throws ClaraException {
-                Image img = (Image) data;
+                var img = (Image) data;
 
                 int nameLength = img.name().length();
                 long imgSize = img.mat().total() * img.mat().channels();
@@ -49,15 +49,15 @@ public final class ImageDataType extends EngineDataType {
                     throw new IllegalArgumentException("image is too large");
                 }
 
-                byte[] imgData = new byte[(int) imgSize];
+                var imgData = new byte[(int) imgSize];
                 img.mat().get(0, 0, imgData);
 
-                ByteBuffer buffer = allocateBytes(bufferSize);
+                var buffer = allocateBytes(bufferSize);
                 buffer.putInt(nameLength);
                 buffer.putInt(img.mat().rows());
                 buffer.putInt(img.mat().cols());
                 buffer.putInt(img.mat().type());
-                buffer.putInt((int) imgSize);
+                buffer.putInt(imgData.length);
 
                 buffer.put(img.name().getBytes());
                 buffer.put(imgData);
@@ -68,19 +68,19 @@ public final class ImageDataType extends EngineDataType {
 
             @Override
             public Object read(ByteBuffer buffer) throws ClaraException {
-                int nameLength = buffer.getInt();
-                int imgRows = buffer.getInt();
-                int imgCols = buffer.getInt();
-                int imgType = buffer.getInt();
-                int imgSize = buffer.getInt();
+                var nameLength = buffer.getInt();
+                var imgRows = buffer.getInt();
+                var imgCols = buffer.getInt();
+                var imgType = buffer.getInt();
+                var imgSize = buffer.getInt();
 
-                byte[] nameData = new byte[nameLength];
+                var nameData = new byte[nameLength];
                 buffer.get(nameData);
-                String name = new String(nameData);
+                var name = new String(nameData);
 
-                byte[] imgData = new byte[imgSize];
+                var imgData = new byte[imgSize];
                 buffer.get(imgData);
-                Mat img = new Mat(imgRows, imgCols, imgType);
+                var img = new Mat(imgRows, imgCols, imgType);
                 img.put(0, 0, imgData);
 
                 return new Image(img, name);
@@ -89,7 +89,7 @@ public final class ImageDataType extends EngineDataType {
     }
 
     private static ByteBuffer allocateBytes(int size) {
-        ByteBuffer bb = ByteBuffer.allocate(size);
+        var bb = ByteBuffer.allocate(size);
         bb.order(ByteOrder.LITTLE_ENDIAN);
         return bb;
     }

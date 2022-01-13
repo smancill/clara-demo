@@ -6,21 +6,19 @@
 
 package dev.smancill.clara.demo.data;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import dev.smancill.clara.demo.core.Image;
 import dev.smancill.clara.demo.core.ImageReader;
-import org.jlab.clara.engine.ClaraSerializer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
-import java.net.URL;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.Arrays;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ImageDataTypeTest {
 
@@ -31,12 +29,12 @@ public class ImageDataTypeTest {
 
     @Test
     public void serializeDataType() throws Exception {
-        String name = "lena.png";
-        URL resource = getClass().getClassLoader().getResource(name);
-        Image img = ImageReader.readImage(Paths.get(resource.getPath()));
+        var name = "lena.png";
+        var resource = getClass().getClassLoader().getResource(name);
+        var img = ImageReader.readImage(Path.of(resource.getPath()));
 
-        ClaraSerializer serializer = ImageDataType.INSTANCE.serializer();
-        Image copy = (Image) serializer.read(serializer.write(img));
+        var serializer = ImageDataType.INSTANCE.serializer();
+        var copy = (Image) serializer.read(serializer.write(img));
 
         assertThat(copy.name(), is(img.name()));
         assertThat(copy.mat().size(), is(img.mat().size()));
@@ -50,7 +48,7 @@ public class ImageDataTypeTest {
     }
 
     private static byte[] getData(Mat m) {
-        byte[] data = new byte[(int) (m.total() * m.channels())];
+        var data = new byte[(int) (m.total() * m.channels())];
         m.get(0, 0, data);
         return data;
     }

@@ -10,7 +10,6 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
-import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
@@ -41,8 +40,8 @@ public class FaceDetector {
         System.out.println("\nRunning FaceDetector");
 
         // Sharpen image
-        Mat source = image;
-        Mat destination = new Mat(image.rows(), image.cols(), image.type());
+        var source = image;
+        var destination = new Mat(image.rows(), image.cols(), image.type());
         for (int i = 0; i < 3; i++) {
             Imgproc.GaussianBlur(source, destination, new Size(0, 0), 10);
             Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
@@ -51,15 +50,15 @@ public class FaceDetector {
         }
 
         // Detect faces in the image.
-        MatOfRect faceDetections = new MatOfRect();
+        var faceDetections = new MatOfRect();
         faceDetector.detectMultiScale(source, faceDetections);
-        System.out.println(String.format("Detected %s faces", faceDetections.toArray().length));
+        System.out.printf("Detected %s faces%n", faceDetections.toArray().length);
 
         // Draw a bounding box around each face.
         if (!faceDetections.empty()) {
-            for (Rect rect : faceDetections.toArray()) {
-                Point p1 = new Point(rect.x, rect.y);
-                Point p2 = new Point(rect.x + rect.width, rect.y + rect.height);
+            for (var rect : faceDetections.toArray()) {
+                var p1 = new Point(rect.x, rect.y);
+                var p2 = new Point(rect.x + rect.width, rect.y + rect.height);
                 Imgproc.rectangle(source, p1, p2, new Scalar(0, 255, 0));
             }
         }

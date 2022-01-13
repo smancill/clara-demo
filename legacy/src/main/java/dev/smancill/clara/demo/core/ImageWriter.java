@@ -33,12 +33,12 @@ public class ImageWriter implements AutoCloseable {
     }
 
     private Path getOutputDir(Path zipPath) throws IOException {
-        Path zipName = zipPath.getFileName();
+        var zipName = zipPath.getFileName();
         if (zipName == null) {
             throw new IllegalArgumentException("Empty path to ZIP dataset");
         }
-        String baseName = zipName.toString().replaceFirst("[.][^.]+$", "");
-        Path outputDir = Files.createTempDirectory("demo").resolve(baseName);
+        var baseName = zipName.toString().replaceFirst("[.][^.]+$", "");
+        var outputDir = Files.createTempDirectory("demo").resolve(baseName);
         Files.createDirectory(outputDir);
         return outputDir;
     }
@@ -50,7 +50,7 @@ public class ImageWriter implements AutoCloseable {
      * @param imageName the filename of the image
      */
     public void writeImage(Mat image, String imageName) {
-        System.out.println(String.format("Writing %s", imageName));
+        System.out.printf("Writing %s%n", imageName);
         writeImage(image, outputDir.resolve(imageName));
     }
 

@@ -7,15 +7,12 @@
 package dev.smancill.clara.demo;
 
 import dev.smancill.clara.demo.core.FaceDetector;
-import dev.smancill.clara.demo.core.Image;
 import dev.smancill.clara.demo.core.ImageReader;
 import dev.smancill.clara.demo.core.ImageWriter;
 import org.opencv.core.Core;
-import org.opencv.core.Mat;
 
-import java.net.URL;
+import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Runs a face detector over all images in a given zipped data set.
@@ -27,23 +24,30 @@ public final class OpenCVDemo {
     public static void main(String[] args) throws Exception {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-        URL classifier = OpenCVDemo.class.getResource("/lbpcascade_frontalface.xml");
-        Path inputDataSet = Paths.get(args[0]);
-        Path outputDataSet = Paths.get(args[1]);
+        var classifier = OpenCVDemo.class.getResource("/lbpcascade_frontalface.xml");
+        if (classifier == null) {
+            throw new IOException("classifier not found");
+        }
+        var inputDataSet = Path.of(args[0]);
+        var outputDataSet = Path.of(args[1]);
 
-        try (ImageReader reader = new ImageReader(inputDataSet);
-             ImageWriter writer = new ImageWriter(outputDataSet)) { // nocheck: Indentation
+        try (var reader = new ImageReader(inputDataSet);
+             var writer = new ImageWriter(outputDataSet)) {
 
-            FaceDetector df = new FaceDetector(classifier.getPath());
+            var df = new FaceDetector(classifier.getPath());
 
             for (int i = 0; i < reader.getImageCount(); i++) {
-                long start = System.currentTimeMillis();
-                Image img = reader.readImage(i);
-                long read = System.currentTimeMillis();
-                Mat result = df.run(img.mat());
-                long end = System.currentTimeMillis();
+                var start = System.currentTimeMillis();
+
+                var img = reader.readImage(i);
+                var read = System.currentTimeMillis();
+
+                var result = df.run(img.mat());
+                var end = System.currentTimeMillis();
+
                 writer.writeImage(result, img.name());
-                long write = System.currentTimeMillis();
+                var write = System.currentTimeMillis();
+
                 System.out.println("Read: " + (read - start));
                 System.out.println("Time: " + (end - read));
                 System.out.println("Write: " + (write - end));

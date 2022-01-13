@@ -50,7 +50,7 @@ public class ImageWriterService extends AbstractEventWriterService<ImageWriter> 
 
     @Override
     protected void writeEvent(Object event) throws EventWriterException {
-        Image img = (Image) event;
+        var img = (Image) event;
         writer.writeImage(img.mat(), img.name());
     }
 

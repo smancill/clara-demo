@@ -19,7 +19,6 @@ import org.opencv.core.Core;
 import java.io.IOException;
 import java.nio.ByteOrder;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * A service that reads images from a ZIP file.
@@ -72,21 +71,25 @@ public class ImageReaderService extends AbstractEventReaderService<ImageReader> 
     }
 
     public static void main(String[] args) throws Exception {
-        Path inputDataSet = Paths.get(ImageReader.class.getResource("/dataset.zip").getPath());
+        var resource = ImageReader.class.getResource("/dataset.zip");
+        if (resource == null) {
+            throw new IOException("dataset.zip resource not found");
+        }
+        var inputDataSet = Path.of(resource.getPath());
 
-        ImageReaderService reader = new ImageReaderService();
+        var reader = new ImageReaderService();
 
-        JSONObject config = new JSONObject();
+        var config = new JSONObject();
         config.put("action", "open");
         config.put("file", inputDataSet.toString());
 
-        EngineData configData = new EngineData();
+        var configData = new EngineData();
         configData.setData(EngineDataType.JSON, config.toString());
 
         reader.configure(configData);
 
         for (int i = 0; i < reader.readEventCount(); i++) {
-            Image img = (Image) reader.readEvent(i);
+            var img = (Image) reader.readEvent(i);
             System.out.println(img.name());
         }
 

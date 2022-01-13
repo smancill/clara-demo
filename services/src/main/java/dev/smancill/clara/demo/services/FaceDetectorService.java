@@ -17,14 +17,11 @@ import org.jlab.clara.std.services.ServiceUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.opencv.core.Core;
-import org.opencv.core.Mat;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Set;
 
 /**
@@ -48,7 +45,7 @@ public class FaceDetectorService extends AbstractService {
 
 
     private ThreadLocal<FaceDetector> createFaceDetector(String classifier) {
-        System.out.printf("using classifier: %s%n", Paths.get(classifier).getFileName());
+        System.out.printf("using classifier: %s%n", Path.of(classifier).getFileName());
         return ThreadLocal.withInitial(() -> new FaceDetector(classifier));
     }
 
@@ -56,12 +53,12 @@ public class FaceDetectorService extends AbstractService {
     @Override
     public EngineData configure(EngineData input) {
         if (input.getMimeType().equals(EngineDataType.JSON.mimeType())) {
-            String source = (String) input.getData();
-            JSONObject config = new JSONObject(source);
+            var source = (String) input.getData();
+            var config = new JSONObject(source);
             if (config.has(CONFIG_CLASSIFIER_KEY)) {
                 try {
-                    String classifierResource = config.getString(CONFIG_CLASSIFIER_KEY);
-                    faceDetector = createFaceDetector(classifierResource);
+                    var classifier = config.getString(CONFIG_CLASSIFIER_KEY);
+                    faceDetector = createFaceDetector(classifier);
                 } catch (JSONException e) {
                     System.err.printf("invalid configuration: %s%n", e.getMessage());
                 } catch (Exception e) {
@@ -77,13 +74,13 @@ public class FaceDetectorService extends AbstractService {
 
     @Override
     public EngineData execute(EngineData input) {
-        EngineData output = new EngineData();
+        var output = new EngineData();
         if (input.getMimeType().equals(ImageDataType.INSTANCE.mimeType())) {
-            Image img = (Image) input.getData();
+            var img = (Image) input.getData();
             try {
                 System.out.printf("Received image %s: %s%n", img.name(), img.mat());
-                Mat result = faceDetector.get().run(img.mat());
-                output.setData(ImageDataType.INSTANCE, new Image(result, img.name()));
+                var resultData = faceDetector.get().run(img.mat());
+                output.setData(ImageDataType.INSTANCE, new Image(resultData, img.name()));
             } catch (Exception e) {
                 ServiceUtils.setError(output, "could not process input image");
             }
@@ -120,13 +117,15 @@ public class FaceDetectorService extends AbstractService {
 
     private String getDefaultClassifier() {
         try {
-            Path destination = Files.createTempDirectory("temp");
-            Path classifier = destination.resolve(DEFAULT_CLASSIFIER);
+            var destination = Files.createTempDirectory("temp");
+            var classifier = destination.resolve(DEFAULT_CLASSIFIER);
             destination.toFile().deleteOnExit();
             classifier.toFile().deleteOnExit();
-            try (InputStream in = getClass().getClassLoader()
-                                            .getResourceAsStream(DEFAULT_CLASSIFIER)) {
-                Files.copy(in, classifier);
+            try (var resource = getClass().getClassLoader().getResourceAsStream(DEFAULT_CLASSIFIER)) {
+                if (resource == null) {
+                    throw new IOException("default classifier resource not found");
+                }
+                Files.copy(resource, classifier);
             }
             return classifier.toString();
         } catch (IOException e) {

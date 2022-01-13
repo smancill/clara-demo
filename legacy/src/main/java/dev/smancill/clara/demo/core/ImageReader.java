@@ -10,11 +10,9 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 import java.io.IOException;
 import java.nio.file.DirectoryIteratorException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -23,7 +21,7 @@ import java.util.stream.StreamSupport;
  */
 public class ImageReader implements AutoCloseable {
 
-    private List<Path> allImages = new ArrayList<>();
+    private final List<Path> imagePaths = new ArrayList<>();
     private final Path unzipDir;
 
     /**
@@ -34,12 +32,12 @@ public class ImageReader implements AutoCloseable {
      */
     public ImageReader(Path dataSet) throws IOException {
         unzipDir = ZipUtils.extract(dataSet);
-        try (DirectoryStream<Path> baseStream = Files.newDirectoryStream(unzipDir)) {
-            Iterator<Path> iter = baseStream.iterator();
-            if (iter.hasNext()) {
-                Path entry = iter.next();
-                if (Files.isDirectory(entry)) {
-                    loadAllImages(entry);
+        try (var files = Files.newDirectoryStream(unzipDir)) {
+            var it = files.iterator();
+            if (it.hasNext()) {
+                var path = it.next();
+                if (Files.isDirectory(path)) {
+                    loadAllImages(path);
                 } else {
                     loadAllImages(unzipDir);
                 }
@@ -50,10 +48,10 @@ public class ImageReader implements AutoCloseable {
     }
 
     private void loadAllImages(Path dir) throws IOException {
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            StreamSupport.stream(stream.spliterator(), false)
+        try (var files = Files.newDirectoryStream(dir)) {
+            StreamSupport.stream(files.spliterator(), false)
                          .filter(Files::isRegularFile)
-                         .forEach(path -> allImages.add(path));
+                         .forEach(this.imagePaths::add);
         }
     }
 
@@ -63,7 +61,7 @@ public class ImageReader implements AutoCloseable {
      * @return the number of images
      */
     public int getImageCount() {
-        return allImages.size();
+        return imagePaths.size();
     }
 
     /**
@@ -73,22 +71,23 @@ public class ImageReader implements AutoCloseable {
      * @return the image
      */
     public Image readImage(int index) {
-        Path img = allImages.get(index);
-        return readImage(img);
+        var path = imagePaths.get(index);
+        return readImage(path);
     }
 
     /**
      * Reads an image from disk.
      *
-     * @param img the path to the image file
+     * @param path the path to the image file
      * @return the image
      */
-    public static Image readImage(Path img) {
-        Path imgName = img.getFileName();
-        if (imgName == null) {
+    public static Image readImage(Path path) {
+        var fileName = path.getFileName();
+        if (fileName == null) {
             throw new IllegalArgumentException("Empty path to image");
         }
-        return new Image(Imgcodecs.imread(img.toString()), imgName.toString());
+        var data = Imgcodecs.imread(path.toString());
+        return new Image(data, fileName.toString());
     }
 
     @Override
@@ -98,6 +97,6 @@ public class ImageReader implements AutoCloseable {
         } catch (IOException e) {
             // ignore
         }
-        allImages.clear();
+        imagePaths.clear();
     }
 }
