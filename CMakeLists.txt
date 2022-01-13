@@ -45,6 +45,7 @@ if(APPLE)
   set(CMAKE_INSTALL_RPATH @loader_path/../lib)
 endif()
 
+include(FetchContent)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 
@@ -58,6 +59,6 @@ add_subdirectory(services/src/main/cpp)
 
 if(DEMO_BUILD_TESTS)
   enable_testing()
-  include(cmake/External/GTest.cmake)
+  include(cmake/External/GoogleTest.cmake)
   add_subdirectory(data/src/test/cpp)
 endif(DEMO_BUILD_TESTS)
