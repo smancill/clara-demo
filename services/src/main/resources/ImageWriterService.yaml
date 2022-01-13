@@ -1,6 +1,6 @@
 ---
 name: ImageWriterService
-engine: org.jlab.clara.demo.services.ImageWriterService
+engine: dev.smancill.clara.demo.services.ImageWriterService
 type: java
 
 author: Sebastián Mancilla

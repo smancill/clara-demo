@@ -4,14 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.jlab.clara.demo.data;
+package dev.smancill.clara.demo.data;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jlab.clara.demo.core.Image;
-import org.jlab.clara.demo.core.ImageReader;
+import dev.smancill.clara.demo.core.Image;
+import dev.smancill.clara.demo.core.ImageReader;
 import org.jlab.clara.engine.ClaraSerializer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

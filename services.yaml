@@ -1,14 +1,14 @@
 ---
 io-services:
   reader:
-    class: org.jlab.clara.demo.services.ImageReaderService
+    class: dev.smancill.clara.demo.services.ImageReaderService
     name: ImageReaderService
   writer:
-    class: org.jlab.clara.demo.services.ImageWriterService
+    class: dev.smancill.clara.demo.services.ImageWriterService
     name: ImageWriterService
 
 services:
-  - class: org.jlab.clara.demo.services.FaceDetectorService
+  - class: dev.smancill.clara.demo.services.FaceDetectorService
     name: FaceDetectorService
   - class: pupil_detector_service
     name: PupilDetectorService

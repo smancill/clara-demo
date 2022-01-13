@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.jlab.clara.demo.data;
+package dev.smancill.clara.demo.data;
 
+import dev.smancill.clara.demo.core.Image;
 import org.jlab.clara.base.error.ClaraException;
-import org.jlab.clara.demo.core.Image;
 import org.jlab.clara.engine.ClaraSerializer;
 import org.jlab.clara.engine.EngineDataType;
 import org.opencv.core.Mat;

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.jlab.clara.demo.core;
+package dev.smancill.clara.demo.core;
 
 import org.opencv.core.Mat;
 

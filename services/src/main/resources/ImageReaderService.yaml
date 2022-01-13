@@ -1,6 +1,6 @@
 ---
 name: ImageReaderService
-engine: org.jlab.clara.demo.services.ImageReaderService
+engine: dev.smancill.clara.demo.services.ImageReaderService
 type: java
 
 author: Sebastián Mancilla

@@ -4,12 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.jlab.clara.demo;
+package dev.smancill.clara.demo;
 
-import org.jlab.clara.demo.core.FaceDetector;
-import org.jlab.clara.demo.core.Image;
-import org.jlab.clara.demo.core.ImageReader;
-import org.jlab.clara.demo.core.ImageWriter;
+import dev.smancill.clara.demo.core.FaceDetector;
+import dev.smancill.clara.demo.core.Image;
+import dev.smancill.clara.demo.core.ImageReader;
+import dev.smancill.clara.demo.core.ImageWriter;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 

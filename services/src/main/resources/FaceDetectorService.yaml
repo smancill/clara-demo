@@ -1,6 +1,6 @@
 ---
 name: FileDetectorService
-engine: org.jlab.clara.demo.services.FileDetectorService
+engine: dev.smancill.clara.demo.services.FileDetectorService
 type: java
 
 author: Sebastián Mancilla
