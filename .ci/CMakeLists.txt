@@ -5,6 +5,10 @@
 cmake_minimum_required(VERSION 3.16.3)
 project(CLARA_DEMO_DEPS NONE)
 
+if(POLICY CMP0135)
+  cmake_policy(SET CMP0135 NEW)
+endif()
+
 if(NOT DEFINED ENV{CLARA_HOME})
   message(FATAL_ERROR "CLARA_HOME is not defined")
 endif()

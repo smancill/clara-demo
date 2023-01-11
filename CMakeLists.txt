@@ -26,6 +26,10 @@ mark_as_advanced(CMAKE_INSTALL_PLUGINDIR)
 if(POLICY CMP0074)
   cmake_policy(SET CMP0074 NEW)
 endif()
+if(POLICY CMP0135)
+  cmake_policy(SET CMP0135 NEW)
+endif()
+
 if(NOT OpenCV_ROOT)
   set(OpenCV_ROOT $ENV{CLARA_HOME} /usr/local/opt/opencv4 /opt/opencv4 /usr/local /usr/
       CACHE PATH "OpenCV installation prefix")
