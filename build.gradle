@@ -10,14 +10,6 @@ ext {
     // dependencies
     claraMavenRepo = 'https://maven.smancill.dev/m2'
 
-    libs = [
-        clara: 'dev.smancill.clara:clara-std:5.0-SNAPSHOT',
-        zip4j: 'net.lingala.zip4j:zip4j:2.9.1',
-        jupiter_api: 'org.junit.jupiter:junit-jupiter-api:5.9.1',
-        jupiter_engine: 'org.junit.jupiter:junit-jupiter-engine:5.9.1',
-        hamcrest: 'org.hamcrest:hamcrest:2.2',
-    ]
-
     // try to find OpenCV
     def baseDirs = [ '/usr/local/opt/opencv4', '/opt/opencv4', '/usr/local', '/usr']
     if (System.getenv('CLARA_HOME') != null) {
@@ -65,8 +57,8 @@ subprojects {
     }
 
     dependencies {
-        testImplementation libs.jupiter_api
-        testRuntimeOnly libs.jupiter_engine
+        testImplementation libs.jupiter.api
+        testRuntimeOnly libs.jupiter.engine
         testImplementation libs.hamcrest
     }
 

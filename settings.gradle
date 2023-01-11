@@ -3,3 +3,17 @@
 // SPDX-License-Identifier: Apache-2.0
 
 include 'legacy', 'data', 'services'
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            version('clara', '5.0-SNAPSHOT')
+            library('clara', 'dev.smancill.clara', 'clara-std').versionRef('clara')
+            library('zip4j', 'net.lingala.zip4j:zip4j:2.9.1')
+            version('jupiter', '5.9.1')
+            library('jupiter-api', 'org.junit.jupiter', 'junit-jupiter-api').versionRef('jupiter')
+            library('jupiter-engine', 'org.junit.jupiter', 'junit-jupiter-engine').versionRef('jupiter')
+            library('hamcrest', 'org.hamcrest:hamcrest:2.2')
+        }
+    }
+}
