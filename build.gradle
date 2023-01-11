@@ -82,9 +82,11 @@ subprojects {
         systemProperty 'java.library.path', opencvJavaDir + ':' + System.getProperty('java.library.path')
     }
 
-    task allDeps(type: DependencyReportTask) {}
+    tasks.register('allDeps', DependencyReportTask) {}
 
-    task allDepInsight(type: DependencyInsightReportTask) doLast {}
+    tasks.register('allDepInsight', DependencyInsightReportTask) {
+        doLast {}
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -148,7 +150,7 @@ project(':services') {
         }
     }
 
-    task deploy(type: Copy, dependsOn: jar) {
+    tasks.register('deploy', Copy) {
         def dest = "$System.env.CLARA_HOME"
 
         into dest
@@ -159,6 +161,8 @@ project(':services') {
                 throw new GradleException('CLARA_HOME not set')
             }
         }
+
+        dependsOn jar
     }
 }
 
@@ -188,7 +192,7 @@ subprojects {
         }
     }
 
-    task spotbugs {
+    tasks.register('spotbugs') {
         group = 'Verification'
         description = 'Marker task to enable SpotBugs.'
     }
