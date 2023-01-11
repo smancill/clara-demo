@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 plugins {
-    id 'com.github.spotbugs' version '4.7.9' apply false
+    id 'com.github.spotbugs' version '5.0.13' apply false
 }
 
 ext {
@@ -182,7 +182,7 @@ subprojects {
     }
 
     spotbugs {
-        toolVersion = '4.4.2'
+        toolVersion = '4.7.3'
         ignoreFailures = true
         effort = 'default'
         reportLevel = 'medium'
