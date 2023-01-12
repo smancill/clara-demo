@@ -31,6 +31,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install libzmq5-dev libprotobuf-dev protobuf-compiler
         sudo apt-get install libopencv-dev
+        sudo ln -s libopencv_java454d.so /usr/lib/jni/libopencv_java454.so  # WTF
 
     - name: Prepare environment
       run: |
