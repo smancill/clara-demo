@@ -26,9 +26,9 @@ if(INSTALL_OPENCV)
 # Build the minimum set of features that make the services work.
 ExternalProject_Add(
   opencv
-  URL               https://github.com/opencv/opencv/archive/4.5.1.zip
-  URL_HASH          SHA256=5fbc26ee09e148a4d494b225d04217f7c913ca1a4d46115b70cca3565d7bbe05
-  DOWNLOAD_NAME     opencv-4.5.1.zip
+  URL               https://github.com/opencv/opencv/archive/4.7.0.zip
+  URL_HASH          SHA256=db6fb5e7dc76829d738fdbcdba11a810c66ca0a4752e531eaf3d793361e96de8
+  DOWNLOAD_NAME     opencv-4.7.0.zip
   CMAKE_ARGS        -DCMAKE_INSTALL_PREFIX:PATH=${OPENCV_INSTALL_DIR}
                     -DCMAKE_INSTALL_LIBDIR=lib
                     -DCMAKE_BUILD_TYPE=Release
