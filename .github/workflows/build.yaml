@@ -28,8 +28,9 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo apt install libzmq5-dev libprotobuf-dev protobuf-compiler
-        sudo apt install libopencv-dev
+        sudo apt-get update
+        sudo apt-get install libzmq5-dev libprotobuf-dev protobuf-compiler
+        sudo apt-get install libopencv-dev
 
     - name: Prepare environment
       run: |
